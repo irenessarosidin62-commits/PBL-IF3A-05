@@ -1,2 +1,0 @@
-# Transformasi Tata Kelola Organisasi: Aplikasi Perencanaan PBM Polibatam
-Perencanaan PBM sangat penting dalam menjamin kesiapan pelaksanaan PBM. Selain prosedur yang sangat kompleks, melibatkan beberapa PIC lintas unit, juga banyak data yang perlu dikelola setiap semester. Saat ini, alat kerja yang digunakan berupa borang/form yang luamayan banyak dan sering terlewat oleh PIC. Melalui aplikasi ini, diharapkan pengelolaan data dapat diperkuat untuk menjamin kesiapan pelaksanaan belajar mengajar di Polibatam.
