@@ -11,7 +11,8 @@ const Login = () => {
   // If already logged in, redirect based on role
   if (user) {
     const routeMap = {
-      'Admin(TU)': '/admin',
+      'Admin': '/admin',
+      'Tata Usaha': '/tu',
       'KPS': '/kps',
       'Laboran': '/laboran',
       'Sekjur': '/sekjur',

@@ -14,8 +14,12 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* Protected Routes per Role */}
-          <Route element={<ProtectedRoute allowedRole="Admin(TU)" />}>
+          <Route element={<ProtectedRoute allowedRole="Admin" />}>
             <Route path="/admin" element={<DashboardPlaceholder />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRole="Tata Usaha" />}>
+            <Route path="/tu" element={<DashboardPlaceholder />} />
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="KPS" />}>

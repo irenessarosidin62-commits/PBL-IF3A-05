@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, User, Lock, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-const roles = ['Admin(TU)', 'KPS', 'Laboran', 'Sekjur', 'Kajur', 'Dosen'];
+const roles = ['Admin', 'Tata Usaha', 'KPS', 'Laboran', 'Sekjur', 'Kajur', 'Dosen'];
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -52,7 +52,8 @@ const LoginForm = () => {
     
     if (result.success) {
       const routeMap = {
-        'Admin(TU)': '/admin',
+        'Admin': '/admin',
+        'Tata Usaha': '/tu',
         'KPS': '/kps',
         'Laboran': '/laboran',
         'Sekjur': '/sekjur',
