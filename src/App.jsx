@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
+import UserManagementPage from './pages/admin/UserManagementPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -15,7 +16,7 @@ function App() {
 
           {/* Protected Routes per Role */}
           <Route element={<ProtectedRoute allowedRole="Admin" />}>
-            <Route path="/admin" element={<DashboardPlaceholder />} />
+            <Route path="/admin" element={<UserManagementPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Tata Usaha" />}>
