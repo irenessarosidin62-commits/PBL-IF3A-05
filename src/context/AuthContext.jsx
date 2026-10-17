@@ -15,7 +15,20 @@ export const AuthProvider = ({ children }) => {
     const storedUser = localStorage.getItem('user') || sessionStorage.getItem('user');
 
     if (storedToken && storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsed = JSON.parse(storedUser);
+        if (parsed.role === 'Admin(TU)') {
+          parsed.role = 'Admin';
+          const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+          storage.setItem('user', JSON.stringify(parsed));
+        }
+        setUser(parsed);
+      } catch {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+      }
     }
     setIsLoading(false);
   }, []);
