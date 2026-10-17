@@ -9,9 +9,10 @@ const UserTable = ({
   onDelete,
   onResetFilters
 }) => {
-  if (isLoading) {
+  // Only show full placeholder loader on initial empty load
+  if (isLoading && (!users || users.length === 0)) {
     return (
-      <div className="bg-white border border-line rounded-[14px] p-12 flex flex-col items-center justify-center text-slate">
+      <div className="bg-white border border-line rounded-[14px] p-12 flex flex-col items-center justify-center text-slate min-h-[360px]">
         <Loader2 size={32} className="animate-spin text-royal-blue mb-3" />
         <p className="text-[14px] font-medium">Memuat data pengguna...</p>
       </div>
@@ -20,7 +21,7 @@ const UserTable = ({
 
   if (!users || users.length === 0) {
     return (
-      <div className="bg-white border border-line rounded-[14px] p-12 flex flex-col items-center justify-center text-center">
+      <div className="bg-white border border-line rounded-[14px] p-12 flex flex-col items-center justify-center text-center min-h-[300px]">
         <div className="w-12 h-12 rounded-full bg-slate/10 flex items-center justify-center text-slate mb-3.5">
           <UserX size={24} />
         </div>
@@ -42,7 +43,7 @@ const UserTable = ({
   }
 
   return (
-    <div className="bg-white border border-line rounded-[14px] overflow-hidden">
+    <div className={`bg-white border border-line rounded-[14px] overflow-hidden relative transition-opacity duration-150 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[760px]">
           <thead>

@@ -7,14 +7,16 @@ const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) =
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Debounce search input by 300ms
+  // Debounce search input by 300ms only when local value differs from current prop
   useEffect(() => {
+    if (localSearch === search) return;
+
     const handler = setTimeout(() => {
       onSearchChange(localSearch);
     }, 300);
 
     return () => clearTimeout(handler);
-  }, [localSearch, onSearchChange]);
+  }, [localSearch, search, onSearchChange]);
 
   // Sync external search reset if any
   useEffect(() => {

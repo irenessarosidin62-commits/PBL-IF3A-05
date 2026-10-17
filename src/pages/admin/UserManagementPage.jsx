@@ -75,21 +75,21 @@ const UserManagementPage = () => {
   }, [loadUsers]);
 
   // Handle Search & Filter changes
-  const handleSearchChange = (val) => {
+  const handleSearchChange = useCallback((val) => {
     setSearch(val);
     setCurrentPage(1);
-  };
+  }, []);
 
-  const handleRoleChange = (role) => {
+  const handleRoleChange = useCallback((role) => {
     setSelectedRole(role);
     setCurrentPage(1);
-  };
+  }, []);
 
-  const handleResetFilters = () => {
+  const handleResetFilters = useCallback(() => {
     setSearch('');
     setSelectedRole('Semua Peran');
     setCurrentPage(1);
-  };
+  }, []);
 
   // Add / Edit Handlers
   const handleOpenAdd = () => {

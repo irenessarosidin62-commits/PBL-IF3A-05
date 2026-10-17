@@ -83,7 +83,7 @@ export const fetchUsers = async ({ search = '', role = 'Semua Peran', page = 1, 
         totalPages,
         limit
       });
-    }, 200);
+    }, 50);
   });
 };
 
