@@ -162,7 +162,7 @@ const UserFormDialog = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A2352]/60 backdrop-blur-xs animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0A2352]/60 animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="dialog-title"
