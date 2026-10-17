@@ -7,7 +7,8 @@ const dummyUsers = [
   { id: 3, role: 'Laboran', nip: 'laboran123', password: 'password123', name: 'Andi (Laboran)' },
   { id: 4, role: 'Sekjur', nip: 'sekjur123', password: 'password123', name: 'Rini (Sekjur)' },
   { id: 5, role: 'Kajur', nip: 'kajur123', password: 'password123', name: 'Agus (Kajur)' },
-  { id: 6, role: 'Dosen', nip: 'dosen123', password: 'password123', name: 'Dina (Dosen)' },
+  { id: 6, role: 'Dosen', nip: '213452', password: 'password123', name: 'Qeysha Nadine', prodi: 'Program Studi Teknik Informatika', nik: '213452' },
+  { id: 7, role: 'Dosen', nip: 'dosen123', password: 'password123', name: 'Qeysha Nadine', prodi: 'Program Studi Teknik Informatika', nik: '213452' },
 ];
 
 export const loginApi = async (role, nip, password) => {
