@@ -1,26 +1,9 @@
 import React from 'react';
 import InformationSection from '../components/auth/InformationSection';
 import LoginForm from '../components/auth/LoginForm';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
 const Login = () => {
-  const { user } = useAuth();
-
-  // If already logged in, redirect based on role
-  if (user) {
-    const routeMap = {
-      'Admin(TU)': '/admin',
-      'KPS': '/kps',
-      'Laboran': '/laboran',
-      'Sekjur': '/sekjur',
-      'Kajur': '/kajur',
-      'Dosen': '/dosen'
-    };
-    return <Navigate to={routeMap[user.role] || '/'} replace />;
-  }
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0E2857] text-white">
       <div

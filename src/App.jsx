@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
 import BerandaDosen from './pages/BerandaDosen';
+import UserManagementPage from './pages/admin/UserManagementPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -16,8 +17,12 @@ function App() {
           <Route path="/beranda-dosen" element={<BerandaDosen />} />
 
           {/* Protected Routes per Role */}
-          <Route element={<ProtectedRoute allowedRole="Admin(TU)" />}>
-            <Route path="/admin" element={<DashboardPlaceholder />} />
+          <Route element={<ProtectedRoute allowedRole="Admin" />}>
+            <Route path="/admin" element={<UserManagementPage />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRole="Tata Usaha" />}>
+            <Route path="/tu" element={<DashboardPlaceholder />} />
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="KPS" />}>
