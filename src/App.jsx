@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
+import CurriculumPage from './pages/kps/CurriculumPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/data-kurikulum" element={<CurriculumPage />} />
 
           {/* Protected Routes per Role */}
           <Route element={<ProtectedRoute allowedRole="Admin" />}>
@@ -24,7 +26,7 @@ function App() {
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="KPS" />}>
-            <Route path="/kps" element={<DashboardPlaceholder />} />
+            <Route path="/kps" element={<CurriculumPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Laboran" />}>
