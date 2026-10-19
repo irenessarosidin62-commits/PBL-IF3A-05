@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, LogOut, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, LogOut, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
@@ -19,6 +19,14 @@ const initialCoursesWali = [
   { id: 103, name: 'Basis Data Terdistribusi', score: '-' },
   { id: 104, name: 'Jaringan Komputer', score: '-' },
 ];
+
+const getInitials = (name) => {
+  if (!name || typeof name !== 'string') return '??';
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '??';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
 
 const BerandaDosen = () => {
   const { user, logout } = useAuth();
@@ -103,6 +111,7 @@ const BerandaDosen = () => {
   const lecturerName = user?.name || 'Qeysha Nadine';
   const lecturerNik = user?.nik || '213452';
   const lecturerProdi = user?.prodi || 'Program Studi Teknik Informatika';
+  const lecturerInitials = getInitials(lecturerName);
 
   return (
     <div className="min-h-screen bg-[#F0F4F9] text-ink font-sans flex flex-col" onClick={closeAllPopovers}>
@@ -139,11 +148,11 @@ const BerandaDosen = () => {
             <button
               type="button"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-2.5 bg-[#4F6A94]/60 hover:bg-[#4F6A94]/85 text-white pl-1.5 pr-4 py-1 rounded-full border border-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/30"
+              className="flex items-center gap-2.5 bg-[#4F6A94]/60 hover:bg-[#4F6A94]/85 text-white pl-1.5 pr-4 py-1 rounded-full border border-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/30 cursor-pointer"
               title="Menu Profil"
             >
               <div className="w-8 h-8 rounded-full bg-[#FFB020] text-[#0A2352] font-bold text-xs flex items-center justify-center shrink-0 shadow-inner">
-                QN
+                {lecturerInitials}
               </div>
               <span className="text-[13px] font-medium text-white tracking-wide">
                 Profil Saya
@@ -155,7 +164,7 @@ const BerandaDosen = () => {
               <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-[#CBD5E1] py-3 px-4 text-[#0F1B33] z-40 animate-in fade-in zoom-in-95">
                 <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
                   <div className="w-10 h-10 rounded-full bg-[#FFB020] text-[#0A2352] font-extrabold text-sm flex items-center justify-center">
-                    QN
+                    {lecturerInitials}
                   </div>
                   <div>
                     <p className="font-bold text-sm text-[#0A2352]">{lecturerName}</p>
@@ -167,7 +176,7 @@ const BerandaDosen = () => {
                 </div>
 
                 <div className="py-2.5 text-xs text-gray-600">
-                  <p className="font-semibold text-gray-800">Unit Kerja:</p>
+                  <p className="font-semibold text-gray-800">Unit Kerja</p>
                   <p>{lecturerProdi}</p>
                 </div>
 
@@ -203,112 +212,181 @@ const BerandaDosen = () => {
           {/* 3 Selectors */}
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
             {/* 1. Tahun Ajaran */}
-            <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <div className="relative shrink-0" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 onClick={() => setOpenDropdown(openDropdown === 'tahun' ? null : 'tahun')}
-                className="bg-white border-2 border-[#1B4FD8] rounded-[11px] px-3.5 py-1.5 flex items-center justify-between gap-3 min-w-[136px] shadow-xs hover:bg-blue-50/30 transition text-left focus:outline-none"
+                className={`bg-white border rounded-[10px] px-3.5 py-1.5 flex items-left justify-between gap-3 min-w-[136px] text-[14px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow cursor-pointer ${
+                  openDropdown === 'tahun'
+                    ? 'border-royal-blue ring-[3px] ring-focus-ring'
+                    : 'border-line hover:border-slate/40'
+                }`}
+                aria-expanded={openDropdown === 'tahun'}
+                aria-haspopup="listbox"
+                aria-label="Filter berdasarkan tahun ajaran"
               >
                 <div>
-                  <span className="text-[11px] font-bold text-[#1B4FD8] block leading-tight">
+                  <span className="text-[11px] font-bold text-royal-blue block leading-tight text-left">
                     Tahun Ajaran
                   </span>
-                  <span className="text-[14px] font-extrabold text-[#0A2352] block leading-tight mt-0.5">
+                  <span className="text-[14px] font-semibold text-ink block leading-tight mt-0.5">
                     {selectedTahun}
                   </span>
                 </div>
-                <ChevronDown size={16} className="text-[#0A2352] shrink-0" />
+                {openDropdown === 'tahun' ? (
+                  <ChevronUp size={18} className="text-slate shrink-0 ml-2" />
+                ) : (
+                  <ChevronDown size={18} className="text-slate shrink-0 ml-2" />
+                )}
               </button>
 
               {openDropdown === 'tahun' && (
-                <div className="absolute left-0 mt-1.5 w-full bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-30">
-                  {['2026/2027', '2025/2026', '2024/2025'].map((th) => (
-                    <button
-                      key={th}
-                      type="button"
-                      onClick={() => {
-                        setSelectedTahun(th);
-                        setOpenDropdown(null);
-                      }}
-                      className={`w-full text-left px-3.5 py-2 text-xs font-semibold ${selectedTahun === th ? 'bg-blue-50 text-[#1B4FD8]' : 'text-gray-700 hover:bg-gray-50'}`}
-                    >
-                      {th}
-                    </button>
-                  ))}
+                <div
+                  className="absolute left-0 mt-1.5 w-full min-w-[140px] bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in"
+                  role="listbox"
+                >
+                  {['2026/2027', '2025/2026', '2024/2025'].map((th) => {
+                    const isSelected = selectedTahun === th;
+                    return (
+                      <button
+                        key={th}
+                        type="button"
+                        onClick={() => {
+                          setSelectedTahun(th);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-tint text-royal-blue font-bold'
+                            : 'text-ink hover:bg-slate/5 font-medium'
+                        }`}
+                        role="option"
+                        aria-selected={isSelected}
+                      >
+                        {th}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
             {/* 2. Semester */}
-            <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <div className="relative shrink-0" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 onClick={() => setOpenDropdown(openDropdown === 'semester' ? null : 'semester')}
-                className="bg-white border-2 border-[#1B4FD8] rounded-[11px] px-3.5 py-1.5 flex items-center justify-between gap-3 min-w-[124px] shadow-xs hover:bg-blue-50/30 transition text-left focus:outline-none"
+                className={`bg-white border rounded-[10px] px-3.5 py-1.5 flex items-left justify-between gap-3 min-w-[124px] text-[14px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow cursor-pointer ${
+                  openDropdown === 'semester'
+                    ? 'border-royal-blue ring-[3px] ring-focus-ring'
+                    : 'border-line hover:border-slate/40'
+                }`}
+                aria-expanded={openDropdown === 'semester'}
+                aria-haspopup="listbox"
+                aria-label="Filter berdasarkan semester"
               >
                 <div>
-                  <span className="text-[11px] font-bold text-[#1B4FD8] block leading-tight">
+                  <span className="text-[11px] font-bold text-royal-blue block leading-tight text-left">
                     Semester
                   </span>
-                  <span className="text-[14px] font-extrabold text-[#0A2352] block leading-tight mt-0.5">
+                  <span className="text-[14px] font-semibold text-ink block leading-tight mt-0.5 text-left">
                     {selectedSemester}
                   </span>
                 </div>
-                <ChevronDown size={16} className="text-[#0A2352] shrink-0" />
+                {openDropdown === 'semester' ? (
+                  <ChevronUp size={18} className="text-slate shrink-0 ml-2" />
+                ) : (
+                  <ChevronDown size={18} className="text-slate shrink-0 ml-2" />
+                )}
               </button>
 
               {openDropdown === 'semester' && (
-                <div className="absolute left-0 mt-1.5 w-full bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-30">
-                  {['Ganjil', 'Genap'].map((sem) => (
-                    <button
-                      key={sem}
-                      type="button"
-                      onClick={() => {
-                        setSelectedSemester(sem);
-                        setOpenDropdown(null);
-                      }}
-                      className={`w-full text-left px-3.5 py-2 text-xs font-semibold ${selectedSemester === sem ? 'bg-blue-50 text-[#1B4FD8]' : 'text-gray-700 hover:bg-gray-50'}`}
-                    >
-                      {sem}
-                    </button>
-                  ))}
+                <div
+                  className="absolute left-0 mt-1.5 w-full min-w-[130px] bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in"
+                  role="listbox"
+                >
+                  {['Ganjil', 'Genap'].map((sem) => {
+                    const isSelected = selectedSemester === sem;
+                    return (
+                      <button
+                        key={sem}
+                        type="button"
+                        onClick={() => {
+                          setSelectedSemester(sem);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-tint text-royal-blue font-bold'
+                            : 'text-ink hover:bg-slate/5 font-medium'
+                        }`}
+                        role="option"
+                        aria-selected={isSelected}
+                      >
+                        {sem}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
             {/* 3. Prodi */}
-            <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <div className="relative shrink-0" onClick={(e) => e.stopPropagation()}>
               <button
                 type="button"
                 onClick={() => setOpenDropdown(openDropdown === 'prodi' ? null : 'prodi')}
-                className="bg-white border-2 border-[#1B4FD8] rounded-[11px] px-3.5 py-1.5 flex items-center justify-between gap-3 min-w-[170px] shadow-xs hover:bg-blue-50/30 transition text-left focus:outline-none"
+                className={`bg-white border rounded-[10px] px-3.5 py-1.5 flex items-left justify-between gap-3 min-w-[170px] text-[14px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow cursor-pointer ${
+                  openDropdown === 'prodi'
+                    ? 'border-royal-blue ring-[3px] ring-focus-ring'
+                    : 'border-line hover:border-slate/40'
+                }`}
+                aria-expanded={openDropdown === 'prodi'}
+                aria-haspopup="listbox"
+                aria-label="Filter berdasarkan program studi"
               >
                 <div>
-                  <span className="text-[11px] font-bold text-[#1B4FD8] block leading-tight">
+                  <span className="text-[11px] font-bold text-royal-blue block leading-tight text-left">
                     Prodi
                   </span>
-                  <span className="text-[14px] font-extrabold text-[#0A2352] block leading-tight mt-0.5">
+                  <span className="text-[14px] font-semibold text-ink block leading-tight mt-0.5 text-left">
                     {selectedProdi}
                   </span>
                 </div>
-                <ChevronDown size={16} className="text-[#0A2352] shrink-0" />
+                {openDropdown === 'prodi' ? (
+                  <ChevronUp size={18} className="text-slate shrink-0 ml-2" />
+                ) : (
+                  <ChevronDown size={18} className="text-slate shrink-0 ml-2" />
+                )}
               </button>
 
               {openDropdown === 'prodi' && (
-                <div className="absolute right-0 mt-1.5 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-30">
-                  {['Teknik Informatika', 'Rekayasa Keamanan Siber', 'Teknologi Rekayasa Multimedia'].map((prd) => (
-                    <button
-                      key={prd}
-                      type="button"
-                      onClick={() => {
-                        setSelectedProdi(prd);
-                        setOpenDropdown(null);
-                      }}
-                      className={`w-full text-left px-3.5 py-2 text-xs font-semibold ${selectedProdi === prd ? 'bg-blue-50 text-[#1B4FD8]' : 'text-gray-700 hover:bg-gray-50'}`}
-                    >
-                      {prd}
-                    </button>
-                  ))}
+                <div
+                  className="absolute right-0 sm:left-0 sm:right-auto mt-1.5 min-w-[260px] w-max max-w-[320px] bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in"
+                  role="listbox"
+                >
+                  {['Teknik Informatika', 'Rekayasa Keamanan Siber', 'Teknologi Rekayasa Multimedia'].map((prd) => {
+                    const isSelected = selectedProdi === prd;
+                    return (
+                      <button
+                        key={prd}
+                        type="button"
+                        onClick={() => {
+                          setSelectedProdi(prd);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-tint text-royal-blue font-bold'
+                            : 'text-ink hover:bg-slate/5 font-medium'
+                        }`}
+                        role="option"
+                        aria-selected={isSelected}
+                      >
+                        {prd}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
