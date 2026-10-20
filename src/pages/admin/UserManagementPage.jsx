@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Plus } from 'lucide-react';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import UserFilterBar from '../../components/admin/UserFilterBar';
 import UserTable from '../../components/admin/UserTable';
@@ -202,23 +203,24 @@ const UserManagementPage = () => {
             <button
               type="button"
               onClick={() => setIsImportDialogOpen(true)}
-              className="h-[44px] px-5 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[14px] rounded-[10px] transition-colors focus:outline-none focus:ring-2 focus:ring-amber cursor-pointer"
+              className="h-[44px] px-5 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[14px] rounded-[10px] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber"
             >
               Impor Excel
             </button>
             <button
               type="button"
               onClick={handleExport}
-              className="h-[44px] px-5 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[14px] rounded-[10px] transition-colors focus:outline-none focus:ring-2 focus:ring-amber cursor-pointer"
+              className="h-[44px] px-5 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[14px] rounded-[10px] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber"
             >
               Ekspor data
             </button>
             <button
               type="button"
               onClick={handleOpenAdd}
-              className="h-[44px] px-5 bg-royal-blue hover:bg-[#1642B5] text-white font-bold text-[14px] rounded-[10px] transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
+              className="h-[44px] px-5 bg-royal-blue hover:bg-[#153eb5] text-white font-bold text-[14px] rounded-[10px] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
             >
-              + Tambah pengguna
+              <Plus size={18} />
+              <span>Tambah pengguna</span>
             </button>
           </div>
         </div>
