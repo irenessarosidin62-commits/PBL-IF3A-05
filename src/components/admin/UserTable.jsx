@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pen, Trash2, Loader2, UserX } from 'lucide-react';
+import { Pencil, Trash2, Loader2, UserX } from 'lucide-react';
 import { USER_STATUS } from '../../constants/userConstants';
 
 const UserTable = ({
@@ -43,36 +43,36 @@ const UserTable = ({
   }
 
   return (
-    <div className={`bg-white border border-line rounded-[14px] overflow-hidden relative transition-opacity duration-150 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+    <div className={`w-full bg-white rounded-[14px] border border-line overflow-hidden shadow-2xs relative transition-opacity duration-150 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[760px]">
           <thead>
-            <tr className="border-b border-line bg-white">
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
+            <tr className="bg-[#F0F5FF] border-b border-line text-ink">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
                 Nama lengkap
               </th>
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
                 Nama pengguna
               </th>
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
                 Surel
               </th>
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-center">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
                 Peran
               </th>
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-center">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
                 Status akun
               </th>
-              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-right">
+              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
                 Aksi
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-line/70">
             {users.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-line last:border-b-0 hover:bg-slate/5 transition-colors"
+                className="hover:bg-[#F9FBFF] transition-colors"
               >
                 {/* Nama lengkap + NIP/NIK */}
                 <td className="py-4 px-6">
@@ -120,20 +120,22 @@ const UserTable = ({
                 </td>
 
                 {/* Aksi */}
-                <td className="py-4 px-6">
-                  <div className="flex justify-end gap-2.5">
+                <td className="py-4 px-6 text-center">
+                  <div className="flex items-center justify-center gap-2">
                     <button
                       type="button"
                       onClick={() => onEdit(row)}
-                      className="h-[32px] px-3 border border-line rounded-[8px] bg-white text-navy text-[13px] font-semibold hover:bg-slate/5 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#EFF4FE] hover:bg-[#E0EBFE] text-royal-blue text-[13px] font-semibold rounded-[8px] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue/30"
+                      title="Ubah data pengguna"
                     >
-                      <Pen size={14} />
+                      <Pencil size={14} />
                       <span>Ubah</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => onDelete(row)}
-                      className="h-[32px] px-3 border border-danger rounded-[8px] bg-white text-danger text-[13px] font-semibold hover:bg-danger/5 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FEE4E2] hover:bg-[#FECDCA] text-danger text-[13px] font-semibold rounded-[8px] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-danger/30"
+                      title="Hapus data pengguna"
                     >
                       <Trash2 size={14} />
                       <span>Hapus</span>
