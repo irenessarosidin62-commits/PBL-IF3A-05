@@ -34,12 +34,14 @@ const AdminNavbar = () => {
   }, [isOpen]);
 
   const initials = user?.name
-    ? user.name
-        .split(' ')
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join('')
-        .toUpperCase()
+    ? user.name.toLowerCase() === 'admin'
+      ? 'AD'
+      : user.name
+          .split(' ')
+          .map((n) => n[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase()
     : 'AD';
 
   return (

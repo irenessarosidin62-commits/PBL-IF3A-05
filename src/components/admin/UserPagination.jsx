@@ -32,7 +32,7 @@ const UserPagination = ({ currentPage, totalPages, totalItems, onPageChange }) =
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
       {/* Left count text */}
       <p className="text-[14px] text-ink font-medium">
-        Menampilkan {startItem}–{endItem} dari {totalItems} pengguna
+        Menampilkan {startItem}-{endItem} dari {totalItems} pengguna
       </p>
 
       {/* Right controls */}

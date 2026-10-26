@@ -47,23 +47,23 @@ const UserTable = ({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[760px]">
           <thead>
-            <tr className="bg-[#F0F5FF] border-b border-line text-ink">
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
+            <tr className="border-b border-line bg-white">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
                 Nama lengkap
               </th>
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
                 Nama pengguna
               </th>
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight whitespace-nowrap">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap">
                 Surel
               </th>
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-center">
                 Peran
               </th>
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-center">
                 Status akun
               </th>
-              <th scope="col" className="py-3.5 px-6 text-[14px] font-bold text-ink tracking-tight text-center whitespace-nowrap">
+              <th scope="col" className="py-4 px-6 text-[13px] font-bold text-slate whitespace-nowrap text-center">
                 Aksi
               </th>
             </tr>
