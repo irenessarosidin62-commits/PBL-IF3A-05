@@ -75,7 +75,7 @@ const DeleteFormDialog = ({
             type="button"
             onClick={onClose}
             disabled={isDeleting}
-            className="h-[44px] px-6 border border-line rounded-[10px] text-ink font-semibold text-[14px] hover:bg-slate/5 transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
+            className="h-[44px] px-6 border border-line rounded-[10px] text-ink font-semibold text-[14px] hover:bg-slate/5 active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
           >
             Batal
           </button>
@@ -84,7 +84,7 @@ const DeleteFormDialog = ({
             type="button"
             onClick={onConfirm}
             disabled={isDeleting}
-            className="h-[44px] px-6 bg-danger hover:bg-[#9B1D14] text-white font-bold text-[14px] rounded-[10px] transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer disabled:opacity-60"
+            className="h-[44px] px-6 bg-danger hover:bg-[#9B1D14] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer disabled:opacity-60"
           >
             {isDeleting && <Loader2 size={16} className="animate-spin" />}
             <span>Ya, hapus</span>

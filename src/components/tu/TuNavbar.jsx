@@ -11,7 +11,7 @@ const TuNavbar = ({ onToggleSidebar }) => {
   const userName = user?.name || 'Irenessa Rosidin';
   const userNik = user?.nipNik || user?.nip || user?.nik || '123456';
   const userRole = user?.role || 'Tata Usaha';
-  const userUnit = 'Laboran Teknik Informatika';
+  const userUnit = user?.unit || 'Tata Usaha';
 
   // Close when clicking outside or pressing Escape
   useEffect(() => {
@@ -62,7 +62,7 @@ const TuNavbar = ({ onToggleSidebar }) => {
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="p-2 rounded-lg text-white hover:bg-white/10 active:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
+            className="p-2 rounded-lg text-white hover:bg-white/10 active:scale-[0.94] active:bg-white/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
             aria-label="Toggle menu sidebar"
           >
             <Menu size={22} />
@@ -74,7 +74,7 @@ const TuNavbar = ({ onToggleSidebar }) => {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-2.5 bg-white/10 hover:bg-white/15 border border-white/15 pl-1.5 pr-4 py-1.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue focus:ring-offset-2 focus:ring-offset-navy cursor-pointer"
+            className="flex items-center gap-2.5 bg-white/10 hover:bg-white/15 active:scale-[0.97] border border-white/15 pl-1.5 pr-4 py-1.5 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-royal-blue focus:ring-offset-2 focus:ring-offset-navy cursor-pointer"
             aria-expanded={isOpen}
             aria-haspopup="true"
             title="Menu Profil"
@@ -90,7 +90,7 @@ const TuNavbar = ({ onToggleSidebar }) => {
           {/* Profile Popover Card (Gambar 3) */}
           {isOpen && (
             <div
-              className="absolute right-0 mt-2.5 w-72 bg-white border border-line rounded-[14px] p-5 shadow-xl z-50 animate-fade-in text-ink"
+              className="absolute right-0 mt-2.5 w-72 bg-white border border-line rounded-[14px] p-5 shadow-xl z-50 animate-scale-up origin-top-right text-ink"
               role="menu"
             >
               <div className="flex items-start gap-3 pb-3 border-b border-line">
@@ -119,7 +119,7 @@ const TuNavbar = ({ onToggleSidebar }) => {
                 <button
                   type="button"
                   onClick={logout}
-                  className="w-full flex items-center justify-center gap-2 bg-[#FEE4E2] hover:bg-[#FECDCA] text-danger font-semibold py-2.5 px-4 rounded-[10px] text-[13px] transition-colors focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#FEE4E2] hover:bg-[#FECDCA] active:scale-[0.98] text-danger font-semibold py-2.5 px-4 rounded-[10px] text-[13px] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer"
                   role="menuitem"
                 >
                   <LogOut size={16} strokeWidth={2.2} />

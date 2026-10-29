@@ -182,7 +182,7 @@ const CompetencyRecapPage = () => {
         <button
           type="button"
           onClick={handleExport}
-          className="h-[44px] px-6 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[14px] rounded-[10px] transition-colors cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-amber"
+          className="h-[44px] px-6 bg-amber hover:bg-[#FFBA3D] active:scale-[0.98] text-amber-ink font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-amber"
         >
           Ekspor Excel
         </button>
@@ -193,7 +193,7 @@ const CompetencyRecapPage = () => {
         <button
           type="button"
           onClick={() => setActiveTab('Dosen pengajar')}
-          className={`h-[40px] px-5 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
+          className={`h-[40px] px-5 text-[14px] rounded-[8px] transition-all duration-200 ease-out active:scale-[0.98] cursor-pointer ${
             activeTab === 'Dosen pengajar'
               ? 'bg-navy text-white font-bold shadow-xs'
               : 'bg-white border border-line text-ink font-semibold hover:bg-slate/5'
@@ -204,7 +204,7 @@ const CompetencyRecapPage = () => {
         <button
           type="button"
           onClick={() => setActiveTab('Dosen wali')}
-          className={`h-[40px] px-5 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
+          className={`h-[40px] px-5 text-[14px] rounded-[8px] transition-all duration-200 ease-out active:scale-[0.98] cursor-pointer ${
             activeTab === 'Dosen wali'
               ? 'bg-navy text-white font-bold shadow-xs'
               : 'bg-white border border-line text-ink font-semibold hover:bg-slate/5'
@@ -215,7 +215,7 @@ const CompetencyRecapPage = () => {
       </div>
 
       {/* Table Card */}
-      <div className="bg-white rounded-[14px] border border-line overflow-hidden shadow-2xs mb-4">
+      <div key={activeTab} className="bg-white rounded-[14px] border border-line overflow-hidden shadow-2xs mb-4 animate-fade-in">
         <div className="overflow-x-auto">
           {activeTab === 'Dosen pengajar' ? (
             /* TAB 1: Dosen Pengajar Table (Gambar 6) */

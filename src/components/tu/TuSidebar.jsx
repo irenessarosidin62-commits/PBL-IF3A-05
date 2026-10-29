@@ -24,7 +24,7 @@ const TuSidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-[74px] bottom-0 left-0 w-64 h-[calc(100vh-74px)] bg-navy z-40 flex flex-col justify-between p-4 border-r border-navy-deep overflow-y-auto transition-transform duration-300 ease-in-out shadow-xl ${
+        className={`fixed top-[74px] bottom-0 left-0 w-64 h-[calc(100vh-74px)] bg-navy z-40 flex flex-col justify-between p-4 border-r border-navy-deep overflow-y-auto transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -43,7 +43,7 @@ const TuSidebar = ({ isOpen, onClose }) => {
                 navigate('/tu');
                 if (window.innerWidth < 1024) onClose();
               }}
-              className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-[10px] text-[14px] transition-colors cursor-pointer text-left ${
+              className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-[10px] text-[14px] transition-all duration-200 ease-out active:scale-[0.98] cursor-pointer text-left ${
                 isFormActive
                   ? 'bg-amber text-amber-ink font-bold shadow-xs'
                   : 'text-white/80 hover:bg-white/10 hover:text-white font-semibold'
@@ -59,7 +59,7 @@ const TuSidebar = ({ isOpen, onClose }) => {
                 navigate('/tu/rekap');
                 if (window.innerWidth < 1024) onClose();
               }}
-              className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-[10px] text-[14px] transition-colors cursor-pointer text-left ${
+              className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-[10px] text-[14px] transition-all duration-200 ease-out active:scale-[0.98] cursor-pointer text-left ${
                 isRecapActive
                   ? 'bg-amber text-amber-ink font-bold shadow-xs'
                   : 'text-white/80 hover:bg-white/10 hover:text-white font-semibold'
@@ -85,7 +85,7 @@ const TuSidebar = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={logout}
-            className="w-full h-[40px] bg-white hover:bg-white/90 text-danger font-bold text-[14px] rounded-[10px] transition-colors flex items-center justify-center cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-danger"
+            className="w-full h-[40px] bg-white hover:bg-white/90 active:scale-[0.98] text-danger font-bold text-[14px] rounded-[10px] transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-danger"
           >
             Keluar
           </button>

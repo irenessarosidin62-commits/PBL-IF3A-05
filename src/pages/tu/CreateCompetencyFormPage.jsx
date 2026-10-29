@@ -327,7 +327,7 @@ const CreateCompetencyFormPage = () => {
             <button
               type="button"
               onClick={handleGenerateForm}
-              className="w-full lg:w-auto h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] text-white font-bold text-[14px] rounded-[10px] transition-colors cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full lg:w-auto h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue"
             >
               Bentuk Form
             </button>
@@ -414,7 +414,7 @@ const CreateCompetencyFormPage = () => {
           <button
             type="button"
             onClick={() => showToast('Fitur Import Excel aspek kompetensi dosen wali siap digunakan.')}
-            className="h-[36px] px-4 bg-amber hover:bg-[#FFBA3D] text-amber-ink font-bold text-[13px] rounded-[8px] transition-colors cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-amber"
+            className="h-[36px] px-4 bg-amber hover:bg-[#FFBA3D] active:scale-[0.98] text-amber-ink font-bold text-[13px] rounded-[8px] transition-all duration-200 cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-amber"
           >
             Import Excel
           </button>
@@ -451,7 +451,7 @@ const CreateCompetencyFormPage = () => {
 
                   <ChevronDown
                     size={18}
-                    className={`text-slate transition-transform duration-200 ${
+                    className={`text-slate transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -459,7 +459,7 @@ const CreateCompetencyFormPage = () => {
 
                 {/* Accordion Body */}
                 {isOpen && (
-                  <div className="px-5 pb-4 pt-1 border-t border-line/60 bg-white">
+                  <div className="px-5 pb-4 pt-1 border-t border-line/60 bg-white animate-accordion-down origin-top">
                     <ol className="space-y-2 mt-2 text-[13px] text-ink leading-relaxed">
                       {aspect.levels.map((lvl, idx) => (
                         <li key={idx} className="flex items-start gap-2.5">
@@ -490,7 +490,7 @@ const CreateCompetencyFormPage = () => {
           <button
             type="button"
             onClick={() => navigate('/tu')}
-            className="h-[44px] px-6 border border-line rounded-[10px] text-ink font-semibold text-[14px] bg-white hover:bg-slate/5 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
+            className="h-[44px] px-6 border border-line rounded-[10px] text-ink font-semibold text-[14px] bg-white hover:bg-slate/5 active:scale-[0.98] transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
           >
             Batal
           </button>
@@ -498,7 +498,7 @@ const CreateCompetencyFormPage = () => {
             type="button"
             disabled={isSubmitting}
             onClick={handleSaveDraft}
-            className="h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] text-white font-bold text-[14px] rounded-[10px] transition-colors cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue disabled:opacity-60"
+            className="h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue disabled:opacity-60"
           >
             {isSubmitting ? 'Menyimpan...' : 'Simpan draf'}
           </button>

@@ -88,7 +88,7 @@ const CompetencyFormPage = () => {
         <button
           type="button"
           onClick={() => navigate('/tu/buat')}
-          className="h-[44px] px-5 bg-royal-blue hover:bg-[#153eb5] text-white font-bold text-[14px] rounded-[10px] transition-colors cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue"
+          className="h-[44px] px-5 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue"
         >
           + Buat Form
         </button>
@@ -125,7 +125,7 @@ const CompetencyFormPage = () => {
                 const isDraft = row.status === FORM_STATUS.DRAFT;
 
                 return (
-                  <tr key={row.id} className="hover:bg-slate/5 transition-colors">
+                  <tr key={row.id} className="hover:bg-slate/5 transition-colors duration-150">
                     {/* Tahun akademik */}
                     <td className="py-4 px-6 text-[14px] font-semibold text-ink">
                       {row.academicYear}
@@ -167,9 +167,9 @@ const CompetencyFormPage = () => {
                           type="button"
                           disabled={!isDraft}
                           onClick={() => navigate('/tu/buat', { state: { editForm: row } })}
-                          className={`h-[32px] px-3 border border-line rounded-[8px] bg-white text-[13px] font-semibold transition-colors inline-flex items-center gap-1.5 ${
+                          className={`h-[32px] px-3 border border-line rounded-[8px] bg-white text-[13px] font-semibold transition-all duration-150 inline-flex items-center gap-1.5 ${
                             isDraft
-                              ? 'text-navy hover:bg-slate/5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue'
+                              ? 'text-navy hover:bg-slate/5 active:scale-[0.96] cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue'
                               : 'opacity-40 cursor-not-allowed text-slate'
                           }`}
                           title={isDraft ? 'Ubah formulir' : 'Formulir sudah dipublikasikan'}
@@ -183,9 +183,9 @@ const CompetencyFormPage = () => {
                           type="button"
                           disabled={!isDraft}
                           onClick={() => setDeleteTarget(row)}
-                          className={`h-[32px] px-3 border border-line rounded-[8px] bg-white text-[13px] font-semibold transition-colors inline-flex items-center gap-1.5 ${
+                          className={`h-[32px] px-3 border border-line rounded-[8px] bg-white text-[13px] font-semibold transition-all duration-150 inline-flex items-center gap-1.5 ${
                             isDraft
-                              ? 'text-danger hover:bg-danger/5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-danger'
+                              ? 'text-danger hover:bg-danger/5 active:scale-[0.96] cursor-pointer focus:outline-none focus:ring-2 focus:ring-danger'
                               : 'opacity-40 cursor-not-allowed text-danger/50'
                           }`}
                           title={isDraft ? 'Hapus formulir' : 'Formulir sudah dipublikasikan'}
@@ -199,7 +199,7 @@ const CompetencyFormPage = () => {
                           <button
                             type="button"
                             onClick={() => handlePublish(row)}
-                            className="h-[32px] px-3.5 border border-line rounded-[8px] bg-white hover:bg-slate/5 text-navy hover:text-royal-blue text-[13px] font-semibold transition-colors inline-flex items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
+                            className="h-[32px] px-3.5 border border-line rounded-[8px] bg-white hover:bg-slate/5 active:scale-[0.96] text-navy hover:text-royal-blue text-[13px] font-semibold transition-all duration-150 inline-flex items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
                           >
                             Publikasikan ke Dosen
                           </button>
@@ -207,7 +207,7 @@ const CompetencyFormPage = () => {
                           <button
                             type="button"
                             onClick={() => handleViewRecap(row)}
-                            className="h-[32px] px-3.5 border border-line rounded-[8px] bg-white hover:bg-slate/5 text-navy hover:text-royal-blue text-[13px] font-semibold transition-colors inline-flex items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
+                            className="h-[32px] px-3.5 border border-line rounded-[8px] bg-white hover:bg-slate/5 active:scale-[0.96] text-navy hover:text-royal-blue text-[13px] font-semibold transition-all duration-150 inline-flex items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
                           >
                             Lihat rekap
                           </button>

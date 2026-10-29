@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import TuNavbar from './TuNavbar';
 import TuSidebar from './TuSidebar';
 
 const TuLayout = ({ children }) => {
+  const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth >= 1024;
@@ -19,11 +21,11 @@ const TuLayout = ({ children }) => {
           onClose={() => setIsSidebarOpen(false)}
         />
         <main
-          className={`flex-1 min-w-0 px-4 sm:px-8 py-8 transition-[padding] duration-300 ease-in-out ${
+          className={`flex-1 min-w-0 px-4 sm:px-8 py-8 transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isSidebarOpen ? 'lg:pl-64' : 'lg:pl-0'
           }`}
         >
-          <div className="max-w-[1140px] mx-auto">
+          <div key={location.pathname} className="max-w-[1140px] mx-auto animate-page-enter">
             {children}
           </div>
         </main>
