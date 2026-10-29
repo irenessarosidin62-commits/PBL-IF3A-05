@@ -16,7 +16,7 @@ const TuSidebar = ({ isOpen, onClose }) => {
       {/* Mobile backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-navy-deep/60 z-30 lg:hidden"
+          className="fixed inset-0 top-[74px] bg-navy-deep/60 z-30 lg:hidden"
           onClick={onClose}
           aria-hidden="true"
         />
@@ -24,8 +24,8 @@ const TuSidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed lg:static top-[74px] bottom-0 left-0 w-64 bg-navy z-30 flex flex-col justify-between p-4 border-r border-navy-deep transition-transform duration-200 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        className={`fixed top-[74px] bottom-0 left-0 w-64 h-[calc(100vh-74px)] bg-navy z-40 flex flex-col justify-between p-4 border-r border-navy-deep overflow-y-auto transition-transform duration-300 ease-in-out shadow-xl ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Top: Menu Items */}

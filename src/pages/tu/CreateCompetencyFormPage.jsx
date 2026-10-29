@@ -51,7 +51,7 @@ const FilterDropdown = ({ label, placeholder, options, value, onChange }) => {
 
       {isOpen && (
         <div
-          className="absolute left-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in space-y-1"
+          className="absolute left-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-20 animate-fade-in space-y-1"
           role="listbox"
         >
           {options.map((opt) => {

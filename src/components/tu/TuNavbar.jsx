@@ -39,19 +39,10 @@ const TuNavbar = ({ onToggleSidebar }) => {
   }, [isOpen]);
 
   return (
-    <header className="w-full bg-navy text-white sticky top-0 z-30 border-b border-navy-deep">
-      <div className="w-full px-4 sm:px-8 h-[74px] flex items-center justify-between">
+    <header className="w-full bg-navy text-white sticky top-0 z-50 border-b border-navy-deep h-[74px]">
+      <div className="w-full px-4 sm:px-8 h-full flex items-center justify-between">
         {/* Brand Left + Hamburger */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <button
-            type="button"
-            onClick={onToggleSidebar}
-            className="p-2 rounded-lg text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
-            aria-label="Toggle menu sidebar"
-          >
-            <Menu size={22} />
-          </button>
-
           <div className="flex items-center gap-3">
             <img
               src={logo}
@@ -67,6 +58,15 @@ const TuNavbar = ({ onToggleSidebar }) => {
               </p>
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={onToggleSidebar}
+            className="p-2 rounded-lg text-white hover:bg-white/10 active:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
+            aria-label="Toggle menu sidebar"
+          >
+            <Menu size={22} />
+          </button>
         </div>
 
         {/* Profile Pill Right */}
