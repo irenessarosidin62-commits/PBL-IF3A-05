@@ -125,7 +125,7 @@ const UserTable = ({
                     <button
                       type="button"
                       onClick={() => onEdit(row)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#EFF4FE] hover:bg-[#E0EBFE] text-royal-blue text-[13px] font-semibold rounded-[8px] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue/30"
+                      className="h-[32px] px-3 border border-line rounded-[8px] bg-white text-navy text-[13px] font-semibold hover:bg-slate/5 transition-colors inline-flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
                       title="Ubah data pengguna"
                     >
                       <Pencil size={14} />
@@ -134,7 +134,7 @@ const UserTable = ({
                     <button
                       type="button"
                       onClick={() => onDelete(row)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FEE4E2] hover:bg-[#FECDCA] text-danger text-[13px] font-semibold rounded-[8px] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-danger/30"
+                      className="h-[32px] px-3 border border-line rounded-[8px] bg-white text-danger text-[13px] font-semibold hover:bg-danger/5 transition-colors inline-flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer"
                       title="Hapus data pengguna"
                     >
                       <Trash2 size={14} />
