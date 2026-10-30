@@ -1,23 +1,163 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, LogOut, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, LogOut, CheckCircle2, AlertCircle, Info } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
 const initialCoursesPengajar = [
-  { id: 1, name: 'Statistika', score: '6' },
-  { id: 2, name: 'Pendidikan Kewarganegaraan', score: '6' },
-  { id: 3, name: 'Proyek Inovasi Agile', score: '6' },
-  { id: 4, name: 'Interaksi Manusia Komputer', score: '6' },
-  { id: 5, name: 'Rekayasa Perangkat Lunak Lanjut', score: '-' },
-  { id: 6, name: 'Mata Kuliah Pilihan Web', score: '-' },
+  {
+    id: 1,
+    code: 'IF318',
+    name: 'Statistika',
+    semester: 3,
+    sks: 2,
+    score: '6',
+    description: 'Mata kuliah ini membahas konsep dasar probabilitas, statistika deskriptif, inferensial, serta penerapannya dalam analisis data komputasi.'
+  },
+  {
+    id: 2,
+    code: 'PK31F',
+    name: 'Pendidikan Kewarganegaraan',
+    semester: 3,
+    sks: 5,
+    score: '5',
+    description: 'Mata kuliah ini membentuk wawasan kebangsaan, integritas, dan kesadaran hak dan kewajiban warga negara dalam konteks profesional TI.'
+  },
+  {
+    id: 3,
+    code: 'IF314',
+    name: 'Proyek Inovasi Agile',
+    semester: 1,
+    sks: 6,
+    score: '7',
+    description: 'Mata kuliah berbasis proyek tim untuk mengembangkan produk perangkat lunak menggunakan metodologi Scrum dan prinsip Agile.'
+  },
+  {
+    id: 4,
+    code: 'IF317',
+    name: 'Interaksi Manusia Komputer',
+    semester: 1,
+    sks: 4,
+    score: '8',
+    description: 'Mata kuliah ini mempelajari prinsip desain antarmuka pengguna (UI), pengalaman pengguna (UX), evaluasi heuristik, dan pengujian kegunaan.'
+  },
+  {
+    id: 5,
+    code: 'IF315',
+    name: 'Rekayasa Perangkat Lunak Lanjut',
+    semester: 3,
+    sks: 3,
+    score: '-',
+    description: 'Mata kuliah ini mendalami arsitektur perangkat lunak lanjutan, pola desain, pengujian otomatis, dan DevOps.'
+  },
+  {
+    id: 6,
+    code: 'IF316',
+    name: 'Mata Kuliah Pilihan Web',
+    semester: 3,
+    sks: 2,
+    score: '-',
+    description: 'Mata kuliah ini membahas konsep dan praktik pengembangan aplikasi web modern dengan menggunakan framework.'
+  },
 ];
 
 const initialCoursesWali = [
-  { id: 101, name: 'Pemrograman Berorientasi Objek', score: '6' },
-  { id: 102, name: 'Struktur Data & Algoritma', score: '5' },
-  { id: 103, name: 'Basis Data Terdistribusi', score: '-' },
-  { id: 104, name: 'Jaringan Komputer', score: '-' },
+  {
+    id: 101,
+    code: 'DW01',
+    name: 'Bimbingan Akademik dan Rencana Studi (KRS)',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Pemantauan perkembangan studi mahasiswa, persetujuan KRS, dan evaluasi capaian IPS/IPK per semester.'
+  },
+  {
+    id: 102,
+    code: 'DW02',
+    name: 'Monitoring Kehadiran dan Ketertiban Mahasiswa',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Pemantauan tingkat kehadiran kuliah mahasiswa binaan dan penanganan dini masalah absensi.'
+  },
+  {
+    id: 103,
+    code: 'DW03',
+    name: 'Konseling dan Penanganan Permasalahan Non-Akademik',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Pendampingan mahasiswa terkait kendala adaptasi, motivasi, finansial, dan kendala personal.'
+  },
+  {
+    id: 104,
+    code: 'DW04',
+    name: 'Pengembangan Karakter dan Soft Skills Mahasiswa',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Pembinaan etika, kedisiplinan, kerjasama tim, dan profesionalisme di lingkungan kampus.'
+  },
+  {
+    id: 105,
+    code: 'DW05',
+    name: 'Persiapan Karier, Magang, dan Proyek Akhir/PBL',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Arahan penentuan topik proyek PBL, tempat magang industri, dan kesiapan transisi karier lulusan.'
+  },
+  {
+    id: 106,
+    code: 'DW06',
+    name: 'Komunikasi dengan Orang Tua/Wali Mahasiswa',
+    semester: 3,
+    sks: '-',
+    score: '-',
+    description: 'Penyampaian laporan perkembangan akademik mahasiswa secara berkala kepada orang tua/wali.'
+  },
+];
+
+const pengajarScaleOptions = [
+  { value: '-', label: 'Pilih Nilai' },
+  { value: '0', label: '0 - Tidak tahu' },
+  { value: '1', label: '1 - Mengetahui definisi' },
+  { value: '2', label: '2 - Mengklasifikasi konten' },
+  { value: '3', label: '3 - Mendemonstrasikan konten' },
+  { value: '4', label: '4 - Menganalisis konten' },
+  { value: '5', label: '5 - Memprediksi dan mengelaborasi' },
+  { value: '6', label: '6 - Membandingkan dan menyimpulkan' },
+  { value: '7', label: '7 - Mengevaluasi dan menjustifikasi' },
+  { value: '8', label: '8 - Mengembangkan' },
+];
+
+const pengajarScaleGuide = [
+  { point: 0, desc: 'Tidak tahu' },
+  { point: 1, desc: 'Mengetahui definisi mata kuliah' },
+  { point: 2, desc: 'Poin 1 + mampu mengklasifikasi konten mata kuliah' },
+  { point: 3, desc: 'Poin 1 + Poin 2 + mampu mendemonstrasikan konten mata kuliah' },
+  { point: 4, desc: 'Poin 1 + Poin 2 + Poin 3 + mampu menganalisis konten mata kuliah' },
+  { point: 5, desc: 'Poin 1 + Poin 2 + Poin 3 + Poin 4 + mampu memprediksi dan mengelaborasi konten mata kuliah' },
+  { point: 6, desc: 'Poin 1 + Poin 2 + Poin 3 + Poin 4 + Poin 5 + mampu membandingkan, mengintegrasikan dan menyimpulkan konten mata kuliah' },
+  { point: 7, desc: 'Poin 1 + Poin 2 + Poin 3 + Poin 4 + Poin 5 + Poin 6 + mampu mengevaluasi dan menjustifikasi konten mata kuliah' },
+  { point: 8, desc: 'Poin 1 + Poin 2 + Poin 3 + Poin 4 + Poin 5 + Poin 6 + Poin 7 + mampu mengembangkan konten mata kuliah' },
+];
+
+const waliScaleOptions = [
+  { value: '-', label: 'Pilih Nilai' },
+  { value: '1', label: 'Level 1 - Pemahaman Dasar' },
+  { value: '2', label: 'Level 2 - Pendampingan Rutin' },
+  { value: '3', label: 'Level 3 - Penanganan Kendala Proaktif' },
+  { value: '4', label: 'Level 4 - Solusi & Motivasi Berkelanjutan' },
+  { value: '5', label: 'Level 5 - Teladan & Praktik Terbaik' },
+];
+
+const waliScaleGuide = [
+  { point: 1, desc: 'Memahami dasar peran dan tanggung jawab perwalian' },
+  { point: 2, desc: 'Mampu memantau progres akademik dan kehadiran rutin mahasiswa' },
+  { point: 3, desc: 'Mampu mengidentifikasi serta memfasilitasi penanganan kendala mahasiswa' },
+  { point: 4, desc: 'Mampu memberikan bimbingan solutif dan memotivasi prestasi akademik/non-akademik' },
+  { point: 5, desc: 'Menjadi teladan dan rujukan praktik terbaik pembinaan mahasiswa' },
 ];
 
 const getInitials = (name) => {
@@ -43,11 +183,15 @@ const BerandaDosen = () => {
 
   // Tab & Search state
   const [activeTab, setActiveTab] = useState('pengajar'); // 'pengajar' | 'wali'
+  const [isScaleOpen, setIsScaleOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Course scores state
   const [coursesPengajar, setCoursesPengajar] = useState(initialCoursesPengajar);
   const [coursesWali, setCoursesWali] = useState(initialCoursesWali);
+
+  // Tooltip state
+  const [activeTooltipCourse, setActiveTooltipCourse] = useState(null);
 
   // Toast & Modal state
   const [toast, setToast] = useState(null);
@@ -62,20 +206,29 @@ const BerandaDosen = () => {
 
   const handleScoreChange = (id, newScore) => {
     if (activeTab === 'pengajar') {
-      setCoursesPengajar(prev =>
-        prev.map(c => (c.id === id ? { ...c, score: newScore } : c))
+      setCoursesPengajar((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, score: newScore } : c))
       );
     } else {
-      setCoursesWali(prev =>
-        prev.map(c => (c.id === id ? { ...c, score: newScore } : c))
+      setCoursesWali((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, score: newScore } : c))
       );
     }
   };
 
   const currentCourses = activeTab === 'pengajar' ? coursesPengajar : coursesWali;
-  const filteredCourses = currentCourses.filter(c =>
-    c.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCourses = currentCourses.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (c.code && c.code.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  // Calculations for total filled
+  const filledPengajar = coursesPengajar.filter((c) => c.score && c.score !== '-').length;
+  const filledWali = coursesWali.filter((c) => c.score && c.score !== '-').length;
+  const totalFilled = filledPengajar + filledWali;
+  const totalItems = coursesPengajar.length + coursesWali.length;
+  const allFilled = totalFilled === totalItems && totalItems > 0;
 
   const handleLogout = () => {
     if (logout) {
@@ -89,8 +242,7 @@ const BerandaDosen = () => {
   };
 
   const handleSubmit = () => {
-    const uncompleted = currentCourses.filter(c => c.score === '-');
-    if (uncompleted.length > 0) {
+    if (!allFilled) {
       setShowConfirmModal(true);
     } else {
       showToastMessage('Penilaian kompetensi berhasil dikirim ke KPS!');
@@ -106,6 +258,7 @@ const BerandaDosen = () => {
   const closeAllPopovers = () => {
     setOpenDropdown(null);
     setIsProfileOpen(false);
+    setActiveTooltipCourse(null);
   };
 
   const lecturerName = user?.name || 'Qeysha Nadine';
@@ -182,8 +335,9 @@ const BerandaDosen = () => {
 
                 <div className="pt-2 border-t border-gray-100">
                   <button
+                    type="button"
                     onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg transition"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg transition cursor-pointer"
                   >
                     <LogOut size={14} />
                     Keluar dari Akun
@@ -395,125 +549,218 @@ const BerandaDosen = () => {
 
         {/* Row 2: Main Competency Card */}
         <div className="bg-white rounded-[20px] border border-[#D8E0EE] p-6 sm:p-8 shadow-[0_4px_24px_rgba(10,35,82,0.04)]">
-          {/* Card Top: Title & Scale Info */}
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-5">
-            <h3 className="text-2xl sm:text-[27px] font-bold text-[#0A2352] tracking-tight">
+          {/* Card Top: Title & Description */}
+          <div className="mb-5">
+            <h3 className="text-2xl sm:text-[27px] font-bold text-[#0D2554] tracking-tight">
               Matriks Kompetensi Saya
             </h3>
-            <span className="text-xs sm:text-[13px] text-[#51607A] font-medium">
-              Skala penilaian 0–6, disusun berdasarkan data kurikulum
-            </span>
+            <p className="text-xs sm:text-[14px] text-[#51607A] font-normal mt-1 leading-relaxed">
+              Satu form berisi dua bagian: nilai 0–8 untuk tiap mata kuliah dan level 1–5 untuk tiap aspek dosen wali. Keduanya dikirim bersama.
+            </p>
           </div>
 
-          {/* Action Row: Search Bar & Tabs */}
-          <div className="flex flex-col md:flex-row items-center gap-3.5 mb-5">
-            {/* Search Input */}
-            <div className="relative w-full md:flex-1">
-              <input
-                type="text"
-                placeholder="Cari mata kuliah"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-[#CBD5E1] rounded-[9px] px-4 py-2.5 text-[14px] text-ink placeholder:text-[#94A3B8] focus:outline-none focus:border-[#1B4FD8] focus:ring-2 focus:ring-[#1B4FD8]/15 transition"
-              />
-            </div>
+          {/* Tabs Row */}
+          <div className="flex items-center gap-2.5 mb-4">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('pengajar');
+                setSearchQuery('');
+              }}
+              className={`text-xs sm:text-[13px] font-bold py-2 px-5 rounded-[8px] transition-all cursor-pointer ${
+                activeTab === 'pengajar'
+                  ? 'bg-[#0D2554] text-white shadow-xs'
+                  : 'bg-white border border-[#0D2554] text-[#0D2554] hover:bg-[#F3F6FB]'
+              }`}
+            >
+              Dosen Pengajar
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('wali');
+                setSearchQuery('');
+              }}
+              className={`text-xs sm:text-[13px] font-bold py-2 px-5 rounded-[8px] transition-all cursor-pointer ${
+                activeTab === 'wali'
+                  ? 'bg-[#0D2554] text-white shadow-xs'
+                  : 'bg-white border border-[#0D2554] text-[#0D2554] hover:bg-[#F3F6FB]'
+              }`}
+            >
+              Dosen Wali
+            </button>
+          </div>
 
-            {/* Role Tabs */}
-            <div className="flex items-center gap-2.5 w-full md:w-auto shrink-0">
-              <button
-                type="button"
-                onClick={() => setActiveTab('pengajar')}
-                className={`flex-1 md:flex-initial text-xs sm:text-[13px] font-bold py-2.5 px-6 rounded-[8px] transition-all shadow-xs ${activeTab === 'pengajar'
-                    ? 'bg-[#0A2352] text-white hover:bg-[#071A3D]'
-                    : 'bg-white border border-[#0A2352] text-[#0A2352] hover:bg-[#F3F6FB]'
-                  }`}
-              >
-                Dosen pengajar
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab('wali')}
-                className={`flex-1 md:flex-initial text-xs sm:text-[13px] font-bold py-2.5 px-6 rounded-[8px] transition-all shadow-xs ${activeTab === 'wali'
-                    ? 'bg-[#0A2352] text-white hover:bg-[#071A3D]'
-                    : 'bg-white border border-[#0A2352] text-[#0A2352] hover:bg-[#F3F6FB]'
-                  }`}
-              >
-                Dosen wali
-              </button>
-            </div>
+          {/* Petunjuk Skala Penilaian Dropdown (Full-width) */}
+          <div className="border border-[#BFDBFE] bg-white rounded-[10px] overflow-hidden mb-4 transition-all">
+            <button
+              type="button"
+              onClick={() => setIsScaleOpen(!isScaleOpen)}
+              className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-blue-50/20 transition cursor-pointer"
+              aria-expanded={isScaleOpen}
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] text-xs font-bold px-2 py-0.5 rounded-md">
+                  {activeTab === 'pengajar' ? '0 – 8' : '1 – 5'}
+                </span>
+                <span className="text-[13px] font-bold text-[#0F1B33]">
+                  {activeTab === 'pengajar' ? 'Petunjuk Skala Penilaian' : 'Petunjuk Skala Penilaian Dosen Wali'}
+                </span>
+              </div>
+              {isScaleOpen ? (
+                <ChevronUp size={18} className="text-[#0F1B33] shrink-0" />
+              ) : (
+                <ChevronDown size={18} className="text-[#0F1B33] shrink-0" />
+              )}
+            </button>
+
+            {isScaleOpen && (
+              <div className="px-4 pb-3.5 pt-1.5 border-t border-[#E2E8F0] space-y-2 text-xs sm:text-[13px] text-[#334155]">
+                {(activeTab === 'pengajar' ? pengajarScaleGuide : waliScaleGuide).map((guide) => (
+                  <div key={guide.point} className="flex items-start gap-2.5">
+                    <span className="w-5 h-5 rounded-md border border-[#94A3B8] text-[11px] font-bold flex items-center justify-center shrink-0 text-[#334155]">
+                      {guide.point}
+                    </span>
+                    <span className="leading-tight pt-0.5">{guide.desc}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Full-width Search Bar */}
+          <div className="relative w-full mb-4">
+            <input
+              type="text"
+              placeholder={activeTab === 'pengajar' ? 'Cari mata kuliah' : 'Cari aspek dosen wali'}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white border border-[#CBD5E1] rounded-[9px] px-4 py-2.5 text-[14px] text-ink placeholder:text-[#94A3B8] focus:outline-none focus:border-[#1B4FD8] focus:ring-2 focus:ring-[#1B4FD8]/15 transition"
+            />
           </div>
 
           {/* Table Container */}
           <div className="bg-[#F4F7FC] rounded-[13px] border border-[#E2E8F0]/70 overflow-hidden mb-6">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[550px]">
-                <thead>
-                  <tr className="border-b border-[#E2E8F0] text-[#0F1B33]">
-                    <th className="py-4 px-6 text-[15px] font-extrabold tracking-wide">
-                      MATA KULIAH
+              <table className="w-full text-left border-collapse min-w-[650px]">
+                <thead className="text-[#0F1B33]">
+                  <tr className="border-b border-[#E2E8F0]">
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                      Kode
                     </th>
-                    <th className="py-4 px-6 text-[15px] font-extrabold text-center w-36 tracking-wide">
-                      NILAI (0–8)
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                      {activeTab === 'pengajar' ? 'Mata kuliah' : 'Aspek Pembimbingan'}
                     </th>
-                    <th className="py-4 px-6 text-[15px] font-extrabold text-center w-36 tracking-wide">
-                      STATUS
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                      Semester
+                    </th>
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                      SKS
+                    </th>
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                      {activeTab === 'pengajar' ? 'NILAI (0–8)' : 'LEVEL (1–5)'}
+                    </th>
+                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                      Status
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredCourses.length === 0 ? (
                     <tr>
-                      <td colSpan={3} className="py-8 text-center text-sm text-[#51607A]">
-                        Tidak ada mata kuliah yang cocok dengan "{searchQuery}"
+                      <td colSpan={6} className="py-8 text-center text-sm text-[#51607A]">
+                        Tidak ada data yang cocok dengan "{searchQuery}"
                       </td>
                     </tr>
                   ) : (
                     filteredCourses.map((item) => {
-                      const isFilled = item.score !== '-';
+                      const isFilled = item.score && item.score !== '-';
                       return (
                         <tr
                           key={item.id}
-                          className="border-b border-[#E2E8F0] last:border-b-0 hover:bg-white/40 transition-colors"
+                          className="border-b border-[#E2E8F0] last:border-b-0 hover:bg-white/50 transition-colors"
                         >
-                          {/* Course Name */}
-                          <td className="py-4 px-6 text-[14px] font-semibold text-[#0F1B33]">
-                            {item.name}
+                          {/* Kode */}
+                          <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                            {item.code}
                           </td>
 
-                          {/* Score Select */}
-                          <td className="py-4 px-6 text-center">
-                            <div className="relative inline-block">
+                          {/* Mata kuliah / Aspek */}
+                          <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                            <div className="flex items-center gap-1.5">
+                              <span>{item.name}</span>
+                              <div className="relative inline-flex items-center" onClick={(e) => e.stopPropagation()}>
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveTooltipCourse(activeTooltipCourse?.id === item.id ? null : item);
+                                  }}
+                                  onMouseEnter={() => setActiveTooltipCourse(item)}
+                                  onMouseLeave={() => setActiveTooltipCourse(null)}
+                                  className="text-[#3B82F6] hover:text-[#1D4ED8] p-0.5 rounded-full hover:bg-blue-50 transition cursor-pointer"
+                                  title="Lihat deskripsi"
+                                  aria-label={`Info ${item.name}`}
+                                >
+                                  <Info size={16} />
+                                </button>
+
+                                {activeTooltipCourse?.id === item.id && (
+                                  <div
+                                    className="absolute left-6 top-full sm:top-auto sm:left-7 z-50 w-72 sm:w-80 bg-white border border-[#CBD5E1] rounded-xl p-3.5 shadow-xl text-left pointer-events-none animate-in fade-in zoom-in-95"
+                                    role="tooltip"
+                                  >
+                                    <div className="font-bold text-sm text-[#0F1B33]">
+                                      {item.name} <span className="font-medium text-[#64748B]">({item.code})</span>
+                                    </div>
+                                    <p className="text-xs text-[#475569] mt-1 leading-relaxed">
+                                      {item.description}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Semester */}
+                          <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                            {item.semester}
+                          </td>
+
+                          {/* SKS */}
+                          <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                            {item.sks}
+                          </td>
+
+                          {/* NILAI (0-8) / LEVEL (1-5) */}
+                          <td className="py-3.5 px-4 sm:px-6">
+                            <div className="relative w-full max-w-[280px]">
                               <select
                                 value={item.score}
                                 onChange={(e) => handleScoreChange(item.id, e.target.value)}
-                                className="appearance-none bg-white border border-[#CBD5E1] text-[#0F1B33] font-bold text-sm rounded-[7px] py-1 pl-3 pr-7 min-w-[70px] text-center cursor-pointer shadow-2xs hover:border-[#1B4FD8] focus:outline-none focus:border-[#1B4FD8] focus:ring-1 focus:ring-[#1B4FD8] transition"
+                                className="w-full appearance-none bg-white border border-[#CBD5E1] text-[#0F1B33] text-[13px] font-medium rounded-[8px] py-1.5 pl-3 pr-8 cursor-pointer shadow-2xs hover:border-[#1B4FD8] focus:outline-none focus:border-[#1B4FD8] focus:ring-1 focus:ring-[#1B4FD8] transition text-left"
                               >
-                                <option value="-">-</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
+                                {(activeTab === 'pengajar' ? pengajarScaleOptions : waliScaleOptions).map((opt) => (
+                                  <option key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                  </option>
+                                ))}
                               </select>
                               <ChevronDown
-                                size={14}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                                size={15}
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
                               />
                             </div>
                           </td>
 
                           {/* Status Badge */}
-                          <td className="py-4 px-6 text-center">
+                          <td className="py-3.5 px-4 sm:px-6 text-center">
                             {isFilled ? (
-                              <span className="inline-block px-3.5 py-0.5 bg-[#DCFCE7] text-[#15803D] text-[11px] font-semibold rounded-full min-w-[76px]">
+                              <span className="inline-block px-3 py-0.5 bg-[#DCFCE7] text-[#15803D] text-[11px] font-semibold rounded-full min-w-[76px]">
                                 Terisi
                               </span>
                             ) : (
-                              <span className="inline-block px-3.5 py-0.5 bg-[#FEE2E2] text-[#B91C1C] text-[11px] font-semibold rounded-full min-w-[76px]">
+                              <span className="inline-block px-3 py-0.5 bg-[#FEE2E2] text-[#DC2626] text-[11px] font-semibold rounded-full min-w-[76px]">
                                 Belum Terisi
                               </span>
                             )}
@@ -527,22 +774,35 @@ const BerandaDosen = () => {
             </div>
           </div>
 
-          {/* Bottom Action Buttons */}
-          <div className="flex items-center justify-end gap-3.5">
-            <button
-              type="button"
-              onClick={handleSaveDraft}
-              className="bg-white hover:bg-slate-50 border border-[#CBD5E1] text-[#0F1B33] font-bold text-sm px-6 py-2.5 rounded-[9px] shadow-2xs transition-colors"
-            >
-              Simpan Draf
-            </button>
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="bg-[#FFA800] hover:bg-[#F59E0B] text-[#4A3000] font-bold text-sm px-8 py-2.5 rounded-[9px] shadow-sm transition-colors"
-            >
-              Kirim
-            </button>
+          {/* Bottom Actions Row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+            {/* Status Summary Helper Text */}
+            <p className="text-xs sm:text-[13px] text-[#51607A] font-medium order-2 sm:order-1">
+              {totalFilled} dari {totalItems} isian terisi. Kirim aktif setelah bagian A dan B terisi semua.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-3.5 order-1 sm:order-2 w-full sm:w-auto justify-end">
+              <button
+                type="button"
+                onClick={handleSaveDraft}
+                className="bg-white hover:bg-blue-50/40 border border-[#2563EB] text-[#2563EB] font-bold text-xs sm:text-[13px] px-6 py-2.5 rounded-[9px] shadow-2xs transition-colors cursor-pointer"
+              >
+                Simpan draf
+              </button>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={!allFilled}
+                className={`font-bold text-xs sm:text-[13px] px-8 py-2.5 rounded-[9px] shadow-2xs transition-all ${
+                  allFilled
+                    ? 'bg-[#0D2554] hover:bg-[#071A3D] text-white cursor-pointer'
+                    : 'bg-[#DDE2EA] text-[#94A3B8] cursor-not-allowed'
+                }`}
+              >
+                Kirim
+              </button>
+            </div>
           </div>
         </div>
       </main>
@@ -556,20 +816,20 @@ const BerandaDosen = () => {
               <h4 className="text-lg font-bold text-[#0A2352]">Konfirmasi Pengiriman</h4>
             </div>
             <p className="text-sm text-gray-600 mb-5 leading-relaxed">
-              Masih terdapat mata kuliah dengan status <span className="font-semibold text-red-600">Belum Terisi</span>. Apakah Anda yakin ingin mengirim penilaian sekarang?
+              Masih terdapat isian dengan status <span className="font-semibold text-red-600">Belum Terisi</span> ({totalItems - totalFilled} isian belum diisi). Apakah Anda yakin ingin mengirim penilaian sekarang?
             </p>
             <div className="flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-50 cursor-pointer"
               >
                 Kembali Lengkapi
               </button>
               <button
                 type="button"
                 onClick={confirmSubmit}
-                className="px-5 py-2 bg-[#FFA800] hover:bg-[#F59E0B] rounded-lg text-xs font-bold text-[#4A3000] shadow-xs"
+                className="px-5 py-2 bg-[#0D2554] hover:bg-[#071A3D] rounded-lg text-xs font-bold text-white shadow-xs cursor-pointer"
               >
                 Tetap Kirim
               </button>
