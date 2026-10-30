@@ -4,6 +4,9 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
+import CompetencyFormPage from './pages/tu/CompetencyFormPage';
+import CreateCompetencyFormPage from './pages/tu/CreateCompetencyFormPage';
+import CompetencyRecapPage from './pages/tu/CompetencyRecapPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -22,7 +25,10 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Tata Usaha" />}>
-            <Route path="/tu" element={<DashboardPlaceholder />} />
+            <Route path="/tu" element={<CompetencyFormPage />} />
+            <Route path="/tu/formulir" element={<CompetencyFormPage />} />
+            <Route path="/tu/buat" element={<CreateCompetencyFormPage />} />
+            <Route path="/tu/rekap" element={<CompetencyRecapPage />} />
           </Route>
           
           <Route element={<ProtectedRoute allowedRole="KPS" />}>
