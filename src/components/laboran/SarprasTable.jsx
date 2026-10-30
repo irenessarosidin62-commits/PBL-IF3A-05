@@ -13,6 +13,9 @@ const SarprasTable = ({
         <table className="w-full text-left border-collapse min-w-[850px]">
           <thead>
             <tr className="border-b border-line bg-white text-slate">
+              <th scope="col" className="py-3.5 px-4 text-[13px] font-bold text-center whitespace-nowrap w-12 sm:w-14">
+                No
+              </th>
               <th scope="col" className="py-3.5 px-6 text-[13px] font-bold whitespace-nowrap">
                 Kode ruang
               </th>
@@ -44,13 +47,13 @@ const SarprasTable = ({
           <tbody className="divide-y divide-line/70">
             {isLoading ? (
               <tr>
-                <td colSpan={showActions ? 8 : 7} className="py-12 text-center text-slate text-[14px]">
+                <td colSpan={showActions ? 9 : 8} className="py-12 text-center text-slate text-[14px]">
                   Memuat data sarana dan prasarana...
                 </td>
               </tr>
             ) : rooms.length === 0 ? (
               <tr>
-                <td colSpan={showActions ? 8 : 7} className="py-12 text-center text-slate">
+                <td colSpan={showActions ? 9 : 8} className="py-12 text-center text-slate">
                   <div className="flex flex-col items-center justify-center gap-2">
                     <Building2 size={32} className="text-slate/40" />
                     <p className="text-[14px] font-medium text-slate">
@@ -60,7 +63,7 @@ const SarprasTable = ({
                 </td>
               </tr>
             ) : (
-              rooms.map((room) => {
+              rooms.map((room, index) => {
                 const isAvailable = room.status === 'tersedia';
                 const locationText = `${room.building || 'Gedung Utama'}, lantai ${room.floor || 1}`;
 
@@ -69,6 +72,11 @@ const SarprasTable = ({
                     key={room.id}
                     className="hover:bg-slate/5 transition-colors duration-150"
                   >
+                    {/* No */}
+                    <td className="py-4 px-4 text-[14px] text-slate font-medium text-center whitespace-nowrap">
+                      {index + 1}
+                    </td>
+
                     {/* Kode ruang */}
                     <td className="py-4 px-6 text-[14px] font-semibold text-ink whitespace-nowrap">
                       {room.code}
@@ -103,15 +111,15 @@ const SarprasTable = ({
 
                     {/* Status */}
                     <td className="py-4 px-6 text-center whitespace-nowrap">
-                      {isAvailable ? (
-                        <span className="inline-flex px-3 py-1 bg-success-bg text-success-text text-[12px] font-semibold rounded-full">
-                          Tersedia
-                        </span>
-                      ) : (
-                        <span className="inline-flex px-3 py-1 bg-[#FEE4E2] text-danger text-[12px] font-semibold rounded-full">
-                          Bermasalah
-                        </span>
-                      )}
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 text-[12px] font-semibold rounded-full ${
+                          isAvailable
+                            ? 'bg-success-bg text-success-text'
+                            : 'bg-danger/10 text-danger'
+                        }`}
+                      >
+                        {isAvailable ? 'Tersedia' : 'Bermasalah'}
+                      </span>
                     </td>
 
                     {/* Aksi */}
@@ -120,7 +128,7 @@ const SarprasTable = ({
                         <button
                           type="button"
                           onClick={() => onEdit(room)}
-                          className="h-[32px] px-3.5 border border-line rounded-[8px] bg-white text-navy hover:bg-slate/5 active:scale-[0.96] text-[13px] font-semibold transition-all duration-150 inline-flex items-center gap-1.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
+                          className="h-[32px] px-3 border border-line rounded-[8px] bg-white text-navy text-[13px] font-semibold hover:bg-slate/5 transition-colors inline-flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
                           title="Ubah data ruang"
                         >
                           <Pencil size={13} />

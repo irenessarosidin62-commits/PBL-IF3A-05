@@ -105,8 +105,8 @@ export const INITIAL_COURSES_BY_PRODI = {
     {
       id: 'tr-2',
       code: 'TR102',
-      name: 'Basis Data Lanjut',
-      semester: 1,
+      name: 'Basis Data Terapan',
+      semester: 2,
       sks: 3,
       score: null,
       description: 'Membahas perancangan basis data relasional dan non-relasional, indexing, optimasi query, dan replikasi basis data terdistribusi.'
@@ -124,7 +124,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-4',
       code: 'TR202',
       name: 'Manajemen Konfigurasi dan Rilis',
-      semester: 3,
+      semester: 4,
       sks: 2,
       score: null,
       description: 'Membahas version control sistematis, branching strategy, release management, otomatisasi build, dan continuous integration.'
@@ -133,7 +133,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-5',
       code: 'TR301',
       name: 'Keamanan Aplikasi Web dan Mobile',
-      semester: 3,
+      semester: 5,
       sks: 3,
       score: null,
       description: 'Analisis kerentanan keamanan perangkat lunak berdasarkan standar OWASP, mekanisme otentikasi/otorisasi aman, dan audit kode.'
@@ -142,7 +142,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-6',
       code: 'TR302',
       name: 'Pengujian dan Penjaminan Kualitas PL',
-      semester: 3,
+      semester: 6,
       sks: 3,
       score: null,
       description: 'Metodologi software quality assurance (SQA), end-to-end testing, test automation, dan audit kualitas perangkat lunak.'

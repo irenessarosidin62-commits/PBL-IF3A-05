@@ -52,8 +52,8 @@ const PeriodDropdown = ({ label, options, value, onChange, widthClass = 'w-auto'
           </span>
         </div>
         <ChevronDown
-          size={15}
-          className={`text-slate transition-transform duration-200 shrink-0 ${
+          size={16}
+          className={`text-slate shrink-0 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -61,7 +61,7 @@ const PeriodDropdown = ({ label, options, value, onChange, widthClass = 'w-auto'
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-xl z-30 animate-fade-in space-y-1"
+          className="absolute right-0 mt-1.5 w-full min-w-[130px] bg-white border border-line rounded-[12px] p-1.5 shadow-xl z-30 animate-fade-in space-y-1"
           role="listbox"
         >
           {options.map((opt) => {
@@ -74,7 +74,7 @@ const PeriodDropdown = ({ label, options, value, onChange, widthClass = 'w-auto'
                   onChange(opt);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-3 py-2 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                className={`w-full text-left px-3 py-2 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
                   isSelected
                     ? 'bg-tint text-royal-blue border border-royal-blue/50'
                     : 'text-ink hover:bg-slate/5'
@@ -100,6 +100,11 @@ const LaboranCompetencyPage = () => {
 
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Dropdown Semester filter beside search bar (Ganjil: 1, 3, 5, 7 | Genap: 2, 4, 6, 8)
+  const [selectedSemesterFilter, setSelectedSemesterFilter] = useState('all');
+  const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState(false);
+  const semesterDropdownRef = useRef(null);
 
   // All courses data indexed by prodi name
   const [coursesByProdi, setCoursesByProdi] = useState({});
@@ -132,6 +137,22 @@ const LaboranCompetencyPage = () => {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  // Reset semester filter when period semester changes (Ganjil <-> Genap)
+  useEffect(() => {
+    setSelectedSemesterFilter('all');
+  }, [semester]);
+
+  // Click outside semester dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (semesterDropdownRef.current && !semesterDropdownRef.current.contains(e.target)) {
+        setIsSemesterDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Close info tooltip when clicking anywhere outside or pressing Esc
   useEffect(() => {
@@ -174,14 +195,19 @@ const LaboranCompetencyPage = () => {
   // Current courses for active prodi
   const currentProdiCourses = coursesByProdi[prodi] || [];
 
-  // Filtered by search query
+  // Filtered by search query and selected semester filter
   const filteredCourses = currentProdiCourses.filter((c) => {
     const q = searchQuery.toLowerCase().trim();
-    if (!q) return true;
-    return (
+    const matchesSearch =
+      !q ||
       c.code.toLowerCase().includes(q) ||
-      c.name.toLowerCase().includes(q)
-    );
+      c.name.toLowerCase().includes(q);
+
+    const matchesSemester =
+      selectedSemesterFilter === 'all' ||
+      String(c.semester) === String(selectedSemesterFilter);
+
+    return matchesSearch && matchesSemester;
   });
 
   // Calculate global progress across ALL prodis
@@ -192,6 +218,23 @@ const LaboranCompetencyPage = () => {
   ).length;
 
   const isAllFilled = totalCoursesCount > 0 && filledCoursesCount === totalCoursesCount;
+
+  // Options for semester dropdown (Ganjil: 1, 3, 5, 7 | Genap: 2, 4, 6, 8)
+  const semesterFilterOptions = semester === 'Ganjil'
+    ? [
+        { value: 'all', label: 'Semua Semester' },
+        { value: '1', label: 'Semester 1' },
+        { value: '3', label: 'Semester 3' },
+        { value: '5', label: 'Semester 5' },
+        { value: '7', label: 'Semester 7' }
+      ]
+    : [
+        { value: 'all', label: 'Semua Semester' },
+        { value: '2', label: 'Semester 2' },
+        { value: '4', label: 'Semester 4' },
+        { value: '6', label: 'Semester 6' },
+        { value: '8', label: 'Semester 8' }
+      ];
 
   // Save Draft
   const handleSaveDraft = async () => {
@@ -262,9 +305,10 @@ const LaboranCompetencyPage = () => {
       {/* Petunjuk Skala Penilaian Card (Gambar 3 & 4) */}
       <CompetencyScaleGuide />
 
-      {/* Input Pencarian Mata Kuliah */}
-      <div className="mb-4">
-        <div className="relative">
+      {/* Search & Semester Filter Row (Ganjil: 1, 3, 5, 7 | Genap: 2, 4, 6, 8) */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-4">
+        {/* Input Pencarian Mata Kuliah */}
+        <div className="relative flex-1">
           <input
             type="text"
             value={searchQuery}
@@ -273,6 +317,63 @@ const LaboranCompetencyPage = () => {
             className="w-full h-[44px] bg-white border border-line rounded-[10px] pl-4 pr-10 text-[13px] sm:text-[14px] text-ink placeholder:text-slate/60 focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/20 transition-all shadow-2xs"
           />
           <Search size={18} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate/50 pointer-events-none" />
+        </div>
+
+        {/* Dropdown Semester */}
+        <div className="relative min-w-[190px]" ref={semesterDropdownRef}>
+          <button
+            type="button"
+            onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)}
+            className={`w-full h-[44px] bg-white border rounded-[10px] px-4 flex items-center justify-between text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all cursor-pointer ${
+              isSemesterDropdownOpen
+                ? 'border-royal-blue ring-2 ring-royal-blue/20'
+                : 'border-line hover:border-slate/40'
+            }`}
+            aria-haspopup="listbox"
+            aria-expanded={isSemesterDropdownOpen}
+          >
+            <span className="font-semibold">
+              {selectedSemesterFilter === 'all'
+                ? 'Semua Semester'
+                : `Semester ${selectedSemesterFilter}`}
+            </span>
+            <ChevronDown
+              size={18}
+              className={`text-slate transition-transform duration-200 ${
+                isSemesterDropdownOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+
+          {isSemesterDropdownOpen && (
+            <div
+              className="absolute right-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-xl z-30 animate-fade-in space-y-1"
+              role="listbox"
+            >
+              {semesterFilterOptions.map((opt) => {
+                const isSelected = selectedSemesterFilter === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => {
+                      setSelectedSemesterFilter(opt.value);
+                      setIsSemesterDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-tint text-royal-blue border border-royal-blue/50'
+                        : 'text-ink hover:bg-slate/5'
+                    }`}
+                    role="option"
+                    aria-selected={isSelected}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
@@ -313,7 +414,7 @@ const LaboranCompetencyPage = () => {
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate">
                     <p className="text-[14px] font-medium text-slate">
-                      Tidak ada mata kuliah yang cocok dengan pencarian.
+                      Tidak ada data mata kuliah yang cocok dengan filter atau pencarian.
                     </p>
                   </td>
                 </tr>
