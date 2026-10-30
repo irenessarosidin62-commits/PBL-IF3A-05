@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ChevronDown, ChevronUp, Calendar, AlertCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
 import TuLayout from '../../components/tu/TuLayout';
 import Toast from '../../components/common/Toast';
+import DatePicker from '../../components/common/DatePicker';
 import {
   ACADEMIC_YEARS,
   SEMESTERS,
@@ -291,17 +292,17 @@ const CreateCompetencyFormPage = () => {
             <label htmlFor="input-start-date" className="block text-[12px] font-semibold text-ink mb-1.5">
               Mulai pengisian
             </label>
-            <div className="relative">
-              <input
-                id="input-start-date"
-                type="text"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                placeholder="dd/mm/yyyy"
-                className="w-full h-[44px] bg-white border border-line rounded-[10px] pl-3.5 pr-9 text-[13px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/30 transition-all"
-              />
-              <Calendar size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate pointer-events-none" />
-            </div>
+            <DatePicker
+              id="input-start-date"
+              label="Mulai pengisian"
+              value={startDate}
+              onChange={(val) => {
+                setStartDate(val);
+                setValidationError('');
+              }}
+              placeholder="dd/mm/yyyy"
+              align="left"
+            />
           </div>
 
           {/* Batas pengisian */}
@@ -309,17 +310,17 @@ const CreateCompetencyFormPage = () => {
             <label htmlFor="input-end-date" className="block text-[12px] font-semibold text-ink mb-1.5">
               Batas pengisian
             </label>
-            <div className="relative">
-              <input
-                id="input-end-date"
-                type="text"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                placeholder="dd/mm/yyyy"
-                className="w-full h-[44px] bg-white border border-line rounded-[10px] pl-3.5 pr-9 text-[13px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/30 transition-all"
-              />
-              <Calendar size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate pointer-events-none" />
-            </div>
+            <DatePicker
+              id="input-end-date"
+              label="Batas pengisian"
+              value={endDate}
+              onChange={(val) => {
+                setEndDate(val);
+                setValidationError('');
+              }}
+              placeholder="dd/mm/yyyy"
+              align="right"
+            />
           </div>
 
           {/* Tombol Bentuk Form */}
