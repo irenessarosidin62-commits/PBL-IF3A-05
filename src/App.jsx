@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
+import SarprasPage from './pages/laboran/SarprasPage';
+import LaboranCompetencyPage from './pages/laboran/LaboranCompetencyPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -30,7 +32,9 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Laboran" />}>
-            <Route path="/laboran" element={<DashboardPlaceholder />} />
+            <Route path="/laboran" element={<Navigate to="/laboran/sarpras" replace />} />
+            <Route path="/laboran/sarpras" element={<SarprasPage />} />
+            <Route path="/laboran/kompetensi" element={<LaboranCompetencyPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Sekjur" />}>
