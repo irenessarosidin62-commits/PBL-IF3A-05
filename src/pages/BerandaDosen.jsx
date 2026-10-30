@@ -61,60 +61,84 @@ const initialCoursesPengajar = [
   },
 ];
 
-const initialCoursesWali = [
+const initialAspectsWali = [
   {
     id: 101,
-    code: 'DW01',
-    name: 'Bimbingan Akademik dan Rencana Studi (KRS)',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Pemantauan perkembangan studi mahasiswa, persetujuan KRS, dan evaluasi capaian IPS/IPK per semester.'
+    letter: 'A',
+    title: 'Pengetahuan terhadap proses perwalian',
+    score: '4',
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
   {
     id: 102,
-    code: 'DW02',
-    name: 'Monitoring Kehadiran dan Ketertiban Mahasiswa',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Pemantauan tingkat kehadiran kuliah mahasiswa binaan dan penanganan dini masalah absensi.'
+    letter: 'B',
+    title: 'Pengetahuan terhadap proses penanganan biaya kuliah',
+    score: null,
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
   {
     id: 103,
-    code: 'DW03',
-    name: 'Konseling dan Penanganan Permasalahan Non-Akademik',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Pendampingan mahasiswa terkait kendala adaptasi, motivasi, finansial, dan kendala personal.'
+    letter: 'C',
+    title: 'Pengetahuan terhadap kurikulum dan silabus',
+    score: null,
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
   {
     id: 104,
-    code: 'DW04',
-    name: 'Pengembangan Karakter dan Soft Skills Mahasiswa',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Pembinaan etika, kedisiplinan, kerjasama tim, dan profesionalisme di lingkungan kampus.'
+    letter: 'D',
+    title: 'Pengetahuan terhadap peraturan akademik',
+    score: null,
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
   {
     id: 105,
-    code: 'DW05',
-    name: 'Persiapan Karier, Magang, dan Proyek Akhir/PBL',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Arahan penentuan topik proyek PBL, tempat magang industri, dan kesiapan transisi karier lulusan.'
+    letter: 'E',
+    title: 'Kemampuan berkomunikasi',
+    score: null,
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
   {
     id: 106,
-    code: 'DW06',
-    name: 'Komunikasi dengan Orang Tua/Wali Mahasiswa',
-    semester: 3,
-    sks: '-',
-    score: '-',
-    description: 'Penyampaian laporan perkembangan akademik mahasiswa secara berkala kepada orang tua/wali.'
+    letter: 'F',
+    title: 'Kemampuan memberikan motivasi',
+    score: null,
+    options: [
+      { level: '1', text: '1. Tidak tahu terhadap proses bisnisnya.' },
+      { level: '2', text: '2. Pernah membaca proses bisnisnya' },
+      { level: '3', text: '3. Pernah membaca proses bisnis, prosedur dan seluruh dokumen terkait' },
+      { level: '4', text: '4. Pernah melaksanakan seluruh proses bisnis, prosedur dan dokumen terkait.' },
+      { level: '5', text: '5. Pernah melaksanakan dan saya mempunyai usulan perbaikan.' },
+    ]
   },
 ];
 
@@ -143,23 +167,6 @@ const pengajarScaleGuide = [
   { point: 8, desc: 'Poin 1 + Poin 2 + Poin 3 + Poin 4 + Poin 5 + Poin 6 + Poin 7 + mampu mengembangkan konten mata kuliah' },
 ];
 
-const waliScaleOptions = [
-  { value: '-', label: 'Pilih Nilai' },
-  { value: '1', label: 'Level 1 - Pemahaman Dasar' },
-  { value: '2', label: 'Level 2 - Pendampingan Rutin' },
-  { value: '3', label: 'Level 3 - Penanganan Kendala Proaktif' },
-  { value: '4', label: 'Level 4 - Solusi & Motivasi Berkelanjutan' },
-  { value: '5', label: 'Level 5 - Teladan & Praktik Terbaik' },
-];
-
-const waliScaleGuide = [
-  { point: 1, desc: 'Memahami dasar peran dan tanggung jawab perwalian' },
-  { point: 2, desc: 'Mampu memantau progres akademik dan kehadiran rutin mahasiswa' },
-  { point: 3, desc: 'Mampu mengidentifikasi serta memfasilitasi penanganan kendala mahasiswa' },
-  { point: 4, desc: 'Mampu memberikan bimbingan solutif dan memotivasi prestasi akademik/non-akademik' },
-  { point: 5, desc: 'Menjadi teladan dan rujukan praktik terbaik pembinaan mahasiswa' },
-];
-
 const getInitials = (name) => {
   if (!name || typeof name !== 'string') return '??';
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -186,9 +193,11 @@ const BerandaDosen = () => {
   const [isScaleOpen, setIsScaleOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Course scores state
+  // Course scores state (Bagian A - Pengajar)
   const [coursesPengajar, setCoursesPengajar] = useState(initialCoursesPengajar);
-  const [coursesWali, setCoursesWali] = useState(initialCoursesWali);
+
+  // Aspects state (Bagian B - Dosen Wali)
+  const [aspectsWali, setAspectsWali] = useState(initialAspectsWali);
 
   // Tooltip state
   const [activeTooltipCourse, setActiveTooltipCourse] = useState(null);
@@ -204,20 +213,19 @@ const BerandaDosen = () => {
     }, 3500);
   };
 
-  const handleScoreChange = (id, newScore) => {
-    if (activeTab === 'pengajar') {
-      setCoursesPengajar((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, score: newScore } : c))
-      );
-    } else {
-      setCoursesWali((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, score: newScore } : c))
-      );
-    }
+  const handlePengajarScoreChange = (id, newScore) => {
+    setCoursesPengajar((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, score: newScore } : c))
+    );
   };
 
-  const currentCourses = activeTab === 'pengajar' ? coursesPengajar : coursesWali;
-  const filteredCourses = currentCourses.filter(
+  const handleWaliScoreChange = (aspectId, level) => {
+    setAspectsWali((prev) =>
+      prev.map((a) => (a.id === aspectId ? { ...a, score: level } : a))
+    );
+  };
+
+  const filteredCourses = coursesPengajar.filter(
     (c) =>
       c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (c.code && c.code.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -225,9 +233,9 @@ const BerandaDosen = () => {
 
   // Calculations for total filled
   const filledPengajar = coursesPengajar.filter((c) => c.score && c.score !== '-').length;
-  const filledWali = coursesWali.filter((c) => c.score && c.score !== '-').length;
+  const filledWali = aspectsWali.filter((a) => a.score !== null && a.score !== '-').length;
   const totalFilled = filledPengajar + filledWali;
-  const totalItems = coursesPengajar.length + coursesWali.length;
+  const totalItems = coursesPengajar.length + aspectsWali.length;
   const allFilled = totalFilled === totalItems && totalItems > 0;
 
   const handleLogout = () => {
@@ -591,188 +599,269 @@ const BerandaDosen = () => {
             </button>
           </div>
 
-          {/* Petunjuk Skala Penilaian Dropdown (Full-width) */}
-          <div className="border border-[#BFDBFE] bg-white rounded-[10px] overflow-hidden mb-4 transition-all">
-            <button
-              type="button"
-              onClick={() => setIsScaleOpen(!isScaleOpen)}
-              className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-blue-50/20 transition cursor-pointer"
-              aria-expanded={isScaleOpen}
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] text-xs font-bold px-2 py-0.5 rounded-md">
-                  {activeTab === 'pengajar' ? '0 – 8' : '1 – 5'}
-                </span>
-                <span className="text-[13px] font-bold text-[#0F1B33]">
-                  {activeTab === 'pengajar' ? 'Petunjuk Skala Penilaian' : 'Petunjuk Skala Penilaian Dosen Wali'}
-                </span>
-              </div>
-              {isScaleOpen ? (
-                <ChevronUp size={18} className="text-[#0F1B33] shrink-0" />
-              ) : (
-                <ChevronDown size={18} className="text-[#0F1B33] shrink-0" />
-              )}
-            </button>
-
-            {isScaleOpen && (
-              <div className="px-4 pb-3.5 pt-1.5 border-t border-[#E2E8F0] space-y-2 text-xs sm:text-[13px] text-[#334155]">
-                {(activeTab === 'pengajar' ? pengajarScaleGuide : waliScaleGuide).map((guide) => (
-                  <div key={guide.point} className="flex items-start gap-2.5">
-                    <span className="w-5 h-5 rounded-md border border-[#94A3B8] text-[11px] font-bold flex items-center justify-center shrink-0 text-[#334155]">
-                      {guide.point}
+          {/* ======================= TAB 1: DOSEN PENGAJAR ======================= */}
+          {activeTab === 'pengajar' && (
+            <>
+              {/* Petunjuk Skala Penilaian Dropdown (Full-width) */}
+              <div className="border border-[#BFDBFE] bg-white rounded-[10px] overflow-hidden mb-4 transition-all">
+                <button
+                  type="button"
+                  onClick={() => setIsScaleOpen(!isScaleOpen)}
+                  className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-blue-50/20 transition cursor-pointer"
+                  aria-expanded={isScaleOpen}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] text-xs font-bold px-2 py-0.5 rounded-md">
+                      0 – 8
                     </span>
-                    <span className="leading-tight pt-0.5">{guide.desc}</span>
+                    <span className="text-[13px] font-bold text-[#0F1B33]">
+                      Petunjuk Skala Penilaian
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Full-width Search Bar */}
-          <div className="relative w-full mb-4">
-            <input
-              type="text"
-              placeholder={activeTab === 'pengajar' ? 'Cari mata kuliah' : 'Cari aspek dosen wali'}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-[#CBD5E1] rounded-[9px] px-4 py-2.5 text-[14px] text-ink placeholder:text-[#94A3B8] focus:outline-none focus:border-[#1B4FD8] focus:ring-2 focus:ring-[#1B4FD8]/15 transition"
-            />
-          </div>
-
-          {/* Table Container */}
-          <div className="bg-[#F4F7FC] rounded-[13px] border border-[#E2E8F0]/70 overflow-hidden mb-6">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[650px]">
-                <thead className="text-[#0F1B33]">
-                  <tr className="border-b border-[#E2E8F0]">
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
-                      Kode
-                    </th>
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
-                      {activeTab === 'pengajar' ? 'Mata kuliah' : 'Aspek Pembimbingan'}
-                    </th>
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
-                      Semester
-                    </th>
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
-                      SKS
-                    </th>
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
-                      {activeTab === 'pengajar' ? 'NILAI (0–8)' : 'LEVEL (1–5)'}
-                    </th>
-                    <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredCourses.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} className="py-8 text-center text-sm text-[#51607A]">
-                        Tidak ada data yang cocok dengan "{searchQuery}"
-                      </td>
-                    </tr>
+                  {isScaleOpen ? (
+                    <ChevronUp size={18} className="text-[#0F1B33] shrink-0" />
                   ) : (
-                    filteredCourses.map((item) => {
-                      const isFilled = item.score && item.score !== '-';
-                      return (
-                        <tr
-                          key={item.id}
-                          className="border-b border-[#E2E8F0] last:border-b-0 hover:bg-white/50 transition-colors"
-                        >
-                          {/* Kode */}
-                          <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
-                            {item.code}
-                          </td>
+                    <ChevronDown size={18} className="text-[#0F1B33] shrink-0" />
+                  )}
+                </button>
 
-                          {/* Mata kuliah / Aspek */}
-                          <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
-                            <div className="flex items-center gap-1.5">
-                              <span>{item.name}</span>
-                              <div className="relative inline-flex items-center" onClick={(e) => e.stopPropagation()}>
-                                <button
-                                  type="button"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setActiveTooltipCourse(activeTooltipCourse?.id === item.id ? null : item);
-                                  }}
-                                  onMouseEnter={() => setActiveTooltipCourse(item)}
-                                  onMouseLeave={() => setActiveTooltipCourse(null)}
-                                  className="text-[#3B82F6] hover:text-[#1D4ED8] p-0.5 rounded-full hover:bg-blue-50 transition cursor-pointer"
-                                  title="Lihat deskripsi"
-                                  aria-label={`Info ${item.name}`}
-                                >
-                                  <Info size={16} />
-                                </button>
+                {isScaleOpen && (
+                  <div className="px-4 pb-3.5 pt-1.5 border-t border-[#E2E8F0] space-y-2 text-xs sm:text-[13px] text-[#334155]">
+                    {pengajarScaleGuide.map((guide) => (
+                      <div key={guide.point} className="flex items-start gap-2.5">
+                        <span className="w-5 h-5 rounded-md border border-[#94A3B8] text-[11px] font-bold flex items-center justify-center shrink-0 text-[#334155]">
+                          {guide.point}
+                        </span>
+                        <span className="leading-tight pt-0.5">{guide.desc}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-                                {activeTooltipCourse?.id === item.id && (
-                                  <div
-                                    className="absolute left-6 top-full sm:top-auto sm:left-7 z-50 w-72 sm:w-80 bg-white border border-[#CBD5E1] rounded-xl p-3.5 shadow-xl text-left pointer-events-none animate-in fade-in zoom-in-95"
-                                    role="tooltip"
-                                  >
-                                    <div className="font-bold text-sm text-[#0F1B33]">
-                                      {item.name} <span className="font-medium text-[#64748B]">({item.code})</span>
-                                    </div>
-                                    <p className="text-xs text-[#475569] mt-1 leading-relaxed">
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </td>
+              {/* Full-width Search Bar */}
+              <div className="relative w-full mb-4">
+                <input
+                  type="text"
+                  placeholder="Cari mata kuliah"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white border border-[#CBD5E1] rounded-[9px] px-4 py-2.5 text-[14px] text-ink placeholder:text-[#94A3B8] focus:outline-none focus:border-[#1B4FD8] focus:ring-2 focus:ring-[#1B4FD8]/15 transition"
+                />
+              </div>
 
-                          {/* Semester */}
-                          <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
-                            {item.semester}
-                          </td>
-
-                          {/* SKS */}
-                          <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
-                            {item.sks}
-                          </td>
-
-                          {/* NILAI (0-8) / LEVEL (1-5) */}
-                          <td className="py-3.5 px-4 sm:px-6">
-                            <div className="relative w-full max-w-[280px]">
-                              <select
-                                value={item.score}
-                                onChange={(e) => handleScoreChange(item.id, e.target.value)}
-                                className="w-full appearance-none bg-white border border-[#CBD5E1] text-[#0F1B33] text-[13px] font-medium rounded-[8px] py-1.5 pl-3 pr-8 cursor-pointer shadow-2xs hover:border-[#1B4FD8] focus:outline-none focus:border-[#1B4FD8] focus:ring-1 focus:ring-[#1B4FD8] transition text-left"
-                              >
-                                {(activeTab === 'pengajar' ? pengajarScaleOptions : waliScaleOptions).map((opt) => (
-                                  <option key={opt.value} value={opt.value}>
-                                    {opt.label}
-                                  </option>
-                                ))}
-                              </select>
-                              <ChevronDown
-                                size={15}
-                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-                              />
-                            </div>
-                          </td>
-
-                          {/* Status Badge */}
-                          <td className="py-3.5 px-4 sm:px-6 text-center">
-                            {isFilled ? (
-                              <span className="inline-block px-3 py-0.5 bg-[#DCFCE7] text-[#15803D] text-[11px] font-semibold rounded-full min-w-[76px]">
-                                Terisi
-                              </span>
-                            ) : (
-                              <span className="inline-block px-3 py-0.5 bg-[#FEE2E2] text-[#DC2626] text-[11px] font-semibold rounded-full min-w-[76px]">
-                                Belum Terisi
-                              </span>
-                            )}
+              {/* Table Container */}
+              <div className="bg-[#F4F7FC] rounded-[13px] border border-[#E2E8F0]/70 overflow-hidden mb-6">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[650px]">
+                    <thead className="text-[#0F1B33]">
+                      <tr className="border-b border-[#E2E8F0]">
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                          Kode
+                        </th>
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                          Mata kuliah
+                        </th>
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                          Semester
+                        </th>
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                          SKS
+                        </th>
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold tracking-wide">
+                          NILAI (0–8)
+                        </th>
+                        <th className="py-3.5 px-4 sm:px-6 text-[14px] font-bold text-center tracking-wide">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredCourses.length === 0 ? (
+                        <tr>
+                          <td colSpan={6} className="py-8 text-center text-sm text-[#51607A]">
+                            Tidak ada mata kuliah yang cocok dengan "{searchQuery}"
                           </td>
                         </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                      ) : (
+                        filteredCourses.map((item) => {
+                          const isFilled = item.score && item.score !== '-';
+                          return (
+                            <tr
+                              key={item.id}
+                              className="border-b border-[#E2E8F0] last:border-b-0 hover:bg-white/50 transition-colors"
+                            >
+                              {/* Kode */}
+                              <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                                {item.code}
+                              </td>
+
+                              {/* Mata kuliah */}
+                              <td className="py-3.5 px-4 sm:px-6 text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                                <div className="flex items-center gap-1.5">
+                                  <span>{item.name}</span>
+                                  <div className="relative inline-flex items-center" onClick={(e) => e.stopPropagation()}>
+                                    <button
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setActiveTooltipCourse(activeTooltipCourse?.id === item.id ? null : item);
+                                      }}
+                                      onMouseEnter={() => setActiveTooltipCourse(item)}
+                                      onMouseLeave={() => setActiveTooltipCourse(null)}
+                                      className="text-[#3B82F6] hover:text-[#1D4ED8] p-0.5 rounded-full hover:bg-blue-50 transition cursor-pointer"
+                                      title="Lihat deskripsi"
+                                      aria-label={`Info ${item.name}`}
+                                    >
+                                      <Info size={16} />
+                                    </button>
+
+                                    {activeTooltipCourse?.id === item.id && (
+                                      <div
+                                        className="absolute left-6 top-full sm:top-auto sm:left-7 z-50 w-72 sm:w-80 bg-white border border-[#CBD5E1] rounded-xl p-3.5 shadow-xl text-left pointer-events-none animate-in fade-in zoom-in-95"
+                                        role="tooltip"
+                                      >
+                                        <div className="font-bold text-sm text-[#0F1B33]">
+                                          {item.name} <span className="font-medium text-[#64748B]">({item.code})</span>
+                                        </div>
+                                        <p className="text-xs text-[#475569] mt-1 leading-relaxed">
+                                          {item.description}
+                                        </p>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </td>
+
+                              {/* Semester */}
+                              <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                                {item.semester}
+                              </td>
+
+                              {/* SKS */}
+                              <td className="py-3.5 px-4 sm:px-6 text-center text-[13px] sm:text-[14px] font-medium text-[#0F1B33]">
+                                {item.sks}
+                              </td>
+
+                              {/* NILAI (0-8) */}
+                              <td className="py-3.5 px-4 sm:px-6">
+                                <div className="relative w-full max-w-[280px]">
+                                  <select
+                                    value={item.score}
+                                    onChange={(e) => handlePengajarScoreChange(item.id, e.target.value)}
+                                    className="w-full appearance-none bg-white border border-[#CBD5E1] text-[#0F1B33] text-[13px] font-medium rounded-[8px] py-1.5 pl-3 pr-8 cursor-pointer shadow-2xs hover:border-[#1B4FD8] focus:outline-none focus:border-[#1B4FD8] focus:ring-1 focus:ring-[#1B4FD8] transition text-left"
+                                  >
+                                    {pengajarScaleOptions.map((opt) => (
+                                      <option key={opt.value} value={opt.value}>
+                                        {opt.label}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <ChevronDown
+                                    size={15}
+                                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                                  />
+                                </div>
+                              </td>
+
+                              {/* Status Badge */}
+                              <td className="py-3.5 px-4 sm:px-6 text-center">
+                                {isFilled ? (
+                                  <span className="inline-block px-3 py-0.5 bg-[#DCFCE7] text-[#15803D] text-[11px] font-semibold rounded-full min-w-[76px]">
+                                    Terisi
+                                  </span>
+                                ) : (
+                                  <span className="inline-block px-3 py-0.5 bg-[#FEE2E2] text-[#DC2626] text-[11px] font-semibold rounded-full min-w-[76px]">
+                                    Belum Terisi
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* ======================= TAB 2: DOSEN WALI ======================= */}
+          {activeTab === 'wali' && (
+            <div className="mb-6">
+              {/* Sub-instruction Header */}
+              <p className="text-xs sm:text-[13px] text-[#51607A] font-medium mb-4">
+                Pilih satu level yang paling menggambarkan kemampuanmu sebagai dosen wali untuk tiap aspek (1 = terendah, 5 = tertinggi).
+              </p>
+
+              {/* Aspect Cards List */}
+              <div className="space-y-4">
+                {aspectsWali.map((aspect) => {
+                  const isFilled = aspect.score !== null && aspect.score !== '-';
+                  return (
+                    <div
+                      key={aspect.id}
+                      className="border border-[#CBD5E1]/80 rounded-[12px] p-4 sm:p-5 bg-white transition-all shadow-[0_1px_3px_rgba(0,0,0,0.02)]"
+                    >
+                      {/* Card Header: Letter + Title + Status Badge */}
+                      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-gray-100">
+                        <div className="flex items-center gap-3">
+                          <span className="w-6 h-6 rounded-[6px] bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] font-bold text-xs flex items-center justify-center shrink-0">
+                            {aspect.letter}
+                          </span>
+                          <h4 className="font-bold text-[14px] sm:text-[15px] text-[#0F1B33]">
+                            {aspect.title}
+                          </h4>
+                        </div>
+                        {isFilled ? (
+                          <span className="inline-block px-3 py-0.5 bg-[#DCFCE7] text-[#15803D] text-[11px] font-semibold rounded-full">
+                            Terisi
+                          </span>
+                        ) : (
+                          <span className="inline-block px-3 py-0.5 bg-[#FEE2E2] text-[#DC2626] text-[11px] font-semibold rounded-full">
+                            Belum Terisi
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Radio Options List */}
+                      <div className="space-y-2.5 pl-0.5">
+                        {aspect.options.map((opt) => {
+                          const isSelected = String(aspect.score) === String(opt.level);
+                          return (
+                            <label
+                              key={opt.level}
+                              className="flex items-center gap-3 cursor-pointer group select-none text-[13px] sm:text-[14px] text-[#1E293B]"
+                            >
+                              <div
+                                className={`w-[18px] h-[18px] rounded-full border flex items-center justify-center transition-colors shrink-0 ${
+                                  isSelected
+                                    ? 'border-[#0D2554] bg-[#0D2554]'
+                                    : 'border-[#94A3B8] bg-white group-hover:border-[#0D2554]'
+                                }`}
+                              >
+                                {isSelected && <div className="w-2 h-2 rounded-full bg-white" />}
+                              </div>
+                              <span className="leading-snug">{opt.text}</span>
+                              <input
+                                type="radio"
+                                name={`aspect-${aspect.id}`}
+                                value={opt.level}
+                                checked={isSelected}
+                                onChange={() => handleWaliScoreChange(aspect.id, opt.level)}
+                                className="sr-only"
+                              />
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Bottom Actions Row */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
