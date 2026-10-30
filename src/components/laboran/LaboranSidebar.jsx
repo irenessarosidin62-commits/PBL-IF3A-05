@@ -1,12 +1,10 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Building2, FileEdit } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
 
 const LaboranSidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout } = useAuth();
 
   const isSarprasActive =
     location.pathname === '/laboran' ||
@@ -26,7 +24,7 @@ const LaboranSidebar = ({ isOpen, onClose }) => {
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-[74px] bottom-0 left-0 w-64 h-[calc(100vh-74px)] bg-navy z-40 flex flex-col justify-between p-4 border-r border-navy-deep overflow-y-auto transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xl ${
+        className={`fixed top-[74px] bottom-0 left-0 w-64 bg-navy z-40 flex flex-col p-4 border-r border-navy-deep overflow-y-auto transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xl ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -71,26 +69,6 @@ const LaboranSidebar = ({ isOpen, onClose }) => {
               <span>Formulir Kompetensi</span>
             </button>
           </nav>
-        </div>
-
-        {/* Bottom: User Info & Keluar button */}
-        <div className="pt-4 border-t border-white/15">
-          <div className="px-1 mb-3">
-            <h4 className="text-[14px] font-bold text-white leading-tight">
-              Laboran
-            </h4>
-            <p className="text-[12px] text-white/70 font-medium mt-0.5">
-              Jurusan Teknik Informatika
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={logout}
-            className="w-full h-[40px] bg-white hover:bg-white/90 active:scale-[0.98] text-danger font-bold text-[14px] rounded-[10px] transition-all duration-200 flex items-center justify-center cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-danger"
-          >
-            Keluar
-          </button>
         </div>
       </aside>
     </>

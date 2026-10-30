@@ -31,6 +31,18 @@ const SarprasFormDialog = ({
   const statusRef = useRef(null);
   const dialogRef = useRef(null);
 
+  // Prevent background scroll when dialog is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     if (isOpen) {
       if (mode === 'edit' && initialData) {
@@ -156,30 +168,38 @@ const SarprasFormDialog = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-deep/60 animate-fade-in overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-navy-deep/60 backdrop-blur-[1px] animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-labelledby="sarpras-dialog-title"
     >
       <div
         ref={dialogRef}
-        className="w-full max-w-[500px] bg-white rounded-[16px] p-6 sm:p-7 shadow-2xl relative animate-scale-up my-8 text-ink"
+        className="w-full max-w-[480px] max-h-[92vh] bg-white rounded-[16px] shadow-2xl relative animate-scale-up text-ink flex flex-col overflow-hidden"
       >
-        <h2 id="sarpras-dialog-title" className="text-[20px] font-bold text-navy mb-5">
-          {mode === 'edit' ? 'Ubah data' : 'Tambah data'}
-        </h2>
+        {/* Modal Header */}
+        <div className="px-6 pt-5 pb-3.5 border-b border-line shrink-0">
+          <h2 id="sarpras-dialog-title" className="text-[19px] font-bold text-navy leading-tight">
+            {mode === 'edit' ? 'Ubah data' : 'Tambah data'}
+          </h2>
+        </div>
 
-        {/* Global submit error */}
-        {errors.general && (
-          <div className="mb-4 p-3 bg-danger/10 border border-danger/30 rounded-[10px] text-danger text-[13px] font-semibold">
-            {errors.general}
-          </div>
-        )}
+        {/* Scrollable Form Body */}
+        <form
+          id="sarpras-form"
+          onSubmit={handleSubmit}
+          className="flex-1 overflow-y-auto px-6 py-4 space-y-3.5"
+        >
+          {/* Global submit error */}
+          {errors.general && (
+            <div className="p-3 bg-danger/10 border border-danger/30 rounded-[10px] text-danger text-[13px] font-semibold">
+              {errors.general}
+            </div>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
           {/* 1. Kode ruang */}
           <div>
-            <label htmlFor="code" className="block text-[13px] font-bold text-ink mb-1.5">
+            <label htmlFor="code" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Kode ruang
             </label>
             <input
@@ -189,20 +209,20 @@ const SarprasFormDialog = ({
               value={formData.code}
               onChange={handleChange}
               placeholder="Contoh: GU 701"
-              className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
+              className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
                 errors.code
                   ? 'border-danger focus:ring-danger/20'
                   : 'border-line focus:border-royal-blue focus:ring-royal-blue/20'
               }`}
             />
             {errors.code && (
-              <p className="mt-1 text-[12px] text-danger font-medium">{errors.code}</p>
+              <p className="mt-1 text-[11px] text-danger font-medium">{errors.code}</p>
             )}
           </div>
 
           {/* 2. Nama ruang */}
           <div>
-            <label htmlFor="name" className="block text-[13px] font-bold text-ink mb-1.5">
+            <label htmlFor="name" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Nama ruang
             </label>
             <input
@@ -212,20 +232,20 @@ const SarprasFormDialog = ({
               value={formData.name}
               onChange={handleChange}
               placeholder="Contoh: Ruang GU 701"
-              className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
+              className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
                 errors.name
                   ? 'border-danger focus:ring-danger/20'
                   : 'border-line focus:border-royal-blue focus:ring-royal-blue/20'
               }`}
             />
             {errors.name && (
-              <p className="mt-1 text-[12px] text-danger font-medium">{errors.name}</p>
+              <p className="mt-1 text-[11px] text-danger font-medium">{errors.name}</p>
             )}
           </div>
 
           {/* 3. Kategori (Dropdown) */}
           <div className="relative" ref={categoryRef}>
-            <label className="block text-[13px] font-bold text-ink mb-1.5">
+            <label className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Kategori
             </label>
             <button
@@ -234,7 +254,7 @@ const SarprasFormDialog = ({
                 setIsCategoryOpen(!isCategoryOpen);
                 setIsStatusOpen(false);
               }}
-              className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 flex items-center justify-between text-[14px] text-ink focus:outline-none focus:ring-2 transition-all cursor-pointer ${
+              className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 flex items-center justify-between text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all cursor-pointer ${
                 isCategoryOpen
                   ? 'border-royal-blue ring-2 ring-royal-blue/20'
                   : 'border-line hover:border-slate/40'
@@ -244,7 +264,7 @@ const SarprasFormDialog = ({
             >
               <span className="font-medium">{formData.category}</span>
               <ChevronDown
-                size={18}
+                size={16}
                 className={`text-slate transition-transform duration-200 ${
                   isCategoryOpen ? 'rotate-180' : ''
                 }`}
@@ -269,7 +289,7 @@ const SarprasFormDialog = ({
                           setErrors((prev) => ({ ...prev, category: '' }));
                         }
                       }}
-                      className={`w-full text-left px-3.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
+                      className={`w-full text-left px-3.5 py-2 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
                         isSelected
                           ? 'bg-tint text-royal-blue border border-royal-blue/50'
                           : 'text-ink hover:bg-slate/5'
@@ -284,13 +304,13 @@ const SarprasFormDialog = ({
               </div>
             )}
             {errors.category && (
-              <p className="mt-1 text-[12px] text-danger font-medium">{errors.category}</p>
+              <p className="mt-1 text-[11px] text-danger font-medium">{errors.category}</p>
             )}
           </div>
 
           {/* 4. Fasilitas (opsional) */}
           <div>
-            <label htmlFor="facilities" className="block text-[13px] font-bold text-ink mb-1.5">
+            <label htmlFor="facilities" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Fasilitas
             </label>
             <input
@@ -300,14 +320,14 @@ const SarprasFormDialog = ({
               value={formData.facilities}
               onChange={handleChange}
               placeholder="Contoh: Proyektor, AC, papan tulis"
-              className="w-full h-[44px] bg-white border border-line rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/20 transition-all"
+              className="w-full h-[40px] bg-white border border-line rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/20 transition-all"
             />
           </div>
 
           {/* 5. Gedung & Lantai (Satu Baris) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="building" className="block text-[13px] font-bold text-ink mb-1.5">
+              <label htmlFor="building" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
                 Gedung
               </label>
               <input
@@ -317,19 +337,19 @@ const SarprasFormDialog = ({
                 value={formData.building}
                 onChange={handleChange}
                 placeholder="Contoh: Gedung Utama"
-                className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
+                className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
                   errors.building
                     ? 'border-danger focus:ring-danger/20'
                     : 'border-line focus:border-royal-blue focus:ring-royal-blue/20'
                 }`}
               />
               {errors.building && (
-                <p className="mt-1 text-[12px] text-danger font-medium">{errors.building}</p>
+                <p className="mt-1 text-[11px] text-danger font-medium">{errors.building}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="floor" className="block text-[13px] font-bold text-ink mb-1.5">
+              <label htmlFor="floor" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
                 Lantai
               </label>
               <input
@@ -341,21 +361,21 @@ const SarprasFormDialog = ({
                 value={formData.floor}
                 onChange={handleChange}
                 placeholder="7"
-                className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
+                className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
                   errors.floor
                     ? 'border-danger focus:ring-danger/20'
                     : 'border-line focus:border-royal-blue focus:ring-royal-blue/20'
                 }`}
               />
               {errors.floor && (
-                <p className="mt-1 text-[12px] text-danger font-medium">{errors.floor}</p>
+                <p className="mt-1 text-[11px] text-danger font-medium">{errors.floor}</p>
               )}
             </div>
           </div>
 
           {/* 6. Kapasitas */}
           <div>
-            <label htmlFor="capacity" className="block text-[13px] font-bold text-ink mb-1.5">
+            <label htmlFor="capacity" className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Kapasitas
             </label>
             <input
@@ -367,20 +387,20 @@ const SarprasFormDialog = ({
               value={formData.capacity}
               onChange={handleChange}
               placeholder="40"
-              className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
+              className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all ${
                 errors.capacity
                   ? 'border-danger focus:ring-danger/20'
                   : 'border-line focus:border-royal-blue focus:ring-royal-blue/20'
               }`}
             />
             {errors.capacity && (
-              <p className="mt-1 text-[12px] text-danger font-medium">{errors.capacity}</p>
+              <p className="mt-1 text-[11px] text-danger font-medium">{errors.capacity}</p>
             )}
           </div>
 
           {/* 7. Status (Dropdown dengan titik warna) */}
           <div className="relative" ref={statusRef}>
-            <label className="block text-[13px] font-bold text-ink mb-1.5">
+            <label className="block text-[12px] sm:text-[13px] font-bold text-ink mb-1">
               Status
             </label>
             <button
@@ -389,7 +409,7 @@ const SarprasFormDialog = ({
                 setIsStatusOpen(!isStatusOpen);
                 setIsCategoryOpen(false);
               }}
-              className={`w-full h-[44px] bg-white border rounded-[10px] px-3.5 flex items-center justify-between text-[14px] text-ink focus:outline-none focus:ring-2 transition-all cursor-pointer ${
+              className={`w-full h-[40px] bg-white border rounded-[9px] px-3.5 flex items-center justify-between text-[13px] sm:text-[14px] text-ink focus:outline-none focus:ring-2 transition-all cursor-pointer ${
                 isStatusOpen
                   ? 'border-royal-blue ring-2 ring-royal-blue/20'
                   : 'border-line hover:border-slate/40'
@@ -405,7 +425,7 @@ const SarprasFormDialog = ({
                 <span className="font-medium">{currentStatusObj.label}</span>
               </div>
               <ChevronDown
-                size={18}
+                size={16}
                 className={`text-slate transition-transform duration-200 ${
                   isStatusOpen ? 'rotate-180' : ''
                 }`}
@@ -430,7 +450,7 @@ const SarprasFormDialog = ({
                           setErrors((prev) => ({ ...prev, status: '' }));
                         }
                       }}
-                      className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
+                      className={`w-full flex items-center gap-2.5 px-3.5 py-2 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
                         isSelected
                           ? 'bg-tint text-royal-blue border border-royal-blue/50'
                           : 'text-ink hover:bg-slate/5'
@@ -449,30 +469,31 @@ const SarprasFormDialog = ({
               </div>
             )}
             {errors.status && (
-              <p className="mt-1 text-[12px] text-danger font-medium">{errors.status}</p>
+              <p className="mt-1 text-[11px] text-danger font-medium">{errors.status}</p>
             )}
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-3">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={isSubmitting}
-              className="h-[44px] px-6 border border-line rounded-[10px] text-ink font-semibold text-[14px] bg-white hover:bg-slate/5 active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
-            >
-              Batal
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-[44px] px-6 bg-amber hover:bg-[#FFBA3D] active:scale-[0.98] text-amber-ink font-bold text-[14px] rounded-[10px] transition-all cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-amber disabled:opacity-60 flex items-center justify-center gap-2"
-            >
-              {isSubmitting && <Loader2 size={16} className="animate-spin text-amber-ink" />}
-              <span>Simpan</span>
-            </button>
-          </div>
         </form>
+
+        {/* Modal Footer (Sticky at bottom of dialog) */}
+        <div className="px-6 py-3.5 border-t border-line flex items-center justify-end gap-3 shrink-0 bg-white rounded-b-[16px]">
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={isSubmitting}
+            className="h-[40px] px-5 border border-line rounded-[10px] text-ink font-semibold text-[13px] sm:text-[14px] bg-white hover:bg-slate/5 active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            form="sarpras-form"
+            disabled={isSubmitting}
+            className="h-[40px] px-6 bg-amber hover:bg-[#FFBA3D] active:scale-[0.98] text-amber-ink font-bold text-[13px] sm:text-[14px] rounded-[10px] transition-all cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-amber disabled:opacity-60 flex items-center justify-center gap-2"
+          >
+            {isSubmitting && <Loader2 size={16} className="animate-spin text-amber-ink" />}
+            <span>Simpan</span>
+          </button>
+        </div>
       </div>
     </div>
   );

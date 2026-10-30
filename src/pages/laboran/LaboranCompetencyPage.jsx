@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronDown, Info, Search } from 'lucide-react';
 import LaboranLayout from '../../components/laboran/LaboranLayout';
 import CompetencyScaleGuide from '../../components/laboran/CompetencyScaleGuide';
-import CourseDescriptionModal from '../../components/laboran/CourseDescriptionModal';
 import Toast from '../../components/common/Toast';
 import {
   ACADEMIC_YEARS,
@@ -17,7 +16,7 @@ import {
 } from '../../services/laboranCompetencyService';
 
 // Custom Dropdown for Period Header (Tahun Ajaran, Semester, Prodi)
-const PeriodDropdown = ({ label, options, value, onChange }) => {
+const PeriodDropdown = ({ label, options, value, onChange, widthClass = 'w-auto' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
@@ -32,11 +31,11 @@ const PeriodDropdown = ({ label, options, value, onChange }) => {
   }, []);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className={`relative ${widthClass}`} ref={ref}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`h-[56px] px-3.5 sm:px-4 bg-white border rounded-[10px] flex items-center justify-between gap-3 text-left transition-all cursor-pointer ${
+        className={`w-full h-[48px] px-3 bg-white border rounded-[10px] flex items-center justify-between gap-2 text-left transition-all cursor-pointer ${
           isOpen
             ? 'border-royal-blue ring-2 ring-royal-blue/20'
             : 'border-line hover:border-slate/40 shadow-2xs'
@@ -44,16 +43,16 @@ const PeriodDropdown = ({ label, options, value, onChange }) => {
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <div>
-          <span className="block text-[11px] text-royal-blue font-bold leading-tight">
+        <div className="min-w-0">
+          <span className="block text-[10px] text-royal-blue font-bold leading-tight truncate">
             {label}
           </span>
-          <span className="block text-[13px] sm:text-[14px] font-bold text-ink leading-tight mt-0.5">
+          <span className="block text-[13px] font-bold text-ink leading-tight mt-0.5 truncate">
             {value}
           </span>
         </div>
         <ChevronDown
-          size={16}
+          size={15}
           className={`text-slate transition-transform duration-200 shrink-0 ${
             isOpen ? 'rotate-180' : ''
           }`}
@@ -62,7 +61,7 @@ const PeriodDropdown = ({ label, options, value, onChange }) => {
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-1.5 w-full min-w-[160px] bg-white border border-line rounded-[12px] p-1.5 shadow-xl z-30 animate-fade-in space-y-1"
+          className="absolute right-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-xl z-30 animate-fade-in space-y-1"
           role="listbox"
         >
           {options.map((opt) => {
@@ -75,7 +74,7 @@ const PeriodDropdown = ({ label, options, value, onChange }) => {
                   onChange(opt);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-3.5 py-2.5 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer ${
+                className={`w-full text-left px-3 py-2 rounded-[8px] text-[13px] font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                   isSelected
                     ? 'bg-tint text-royal-blue border border-royal-blue/50'
                     : 'text-ink hover:bg-slate/5'
@@ -106,8 +105,9 @@ const LaboranCompetencyPage = () => {
   const [coursesByProdi, setCoursesByProdi] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  // Selected course for description modal
+  // Selected course for description tooltip popover
   const [activeCourseDesc, setActiveCourseDesc] = useState(null);
+  const descPopoverRef = useRef(null);
 
   // Toast & submission state
   const [toast, setToast] = useState({ message: '', type: 'success' });
@@ -132,6 +132,28 @@ const LaboranCompetencyPage = () => {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  // Close info tooltip when clicking anywhere outside or pressing Esc
+  useEffect(() => {
+    const handleGlobalClick = (e) => {
+      if (descPopoverRef.current && !descPopoverRef.current.contains(e.target)) {
+        setActiveCourseDesc(null);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setActiveCourseDesc(null);
+      }
+    };
+    if (activeCourseDesc) {
+      document.addEventListener('mousedown', handleGlobalClick);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleGlobalClick);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeCourseDesc]);
 
   // Handle score change for a specific course
   const handleScoreChange = (courseId, newScore) => {
@@ -218,18 +240,21 @@ const LaboranCompetencyPage = () => {
             options={ACADEMIC_YEARS}
             value={academicYear}
             onChange={setAcademicYear}
+            widthClass="w-[126px]"
           />
           <PeriodDropdown
             label="Semester"
             options={SEMESTERS}
             value={semester}
             onChange={setSemester}
+            widthClass="w-[106px]"
           />
           <PeriodDropdown
             label="Prodi"
             options={PRODIS}
             value={prodi}
             onChange={setProdi}
+            widthClass="w-[175px]"
           />
         </div>
       </div>
@@ -251,7 +276,7 @@ const LaboranCompetencyPage = () => {
         </div>
       </div>
 
-      {/* Table Card (Gambar 2) */}
+      {/* Table Card (Gambar 2 & 5) */}
       <div className="w-full bg-white rounded-[14px] border border-line overflow-hidden shadow-2xs mb-6">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[760px]">
@@ -295,11 +320,12 @@ const LaboranCompetencyPage = () => {
               ) : (
                 filteredCourses.map((c) => {
                   const isFilled = c.score !== null && c.score !== undefined && c.score !== '';
+                  const isDescOpen = activeCourseDesc?.id === c.id;
 
                   return (
                     <tr
                       key={c.id || c.code}
-                      className="hover:bg-slate/5 transition-colors duration-150"
+                      className="hover:bg-slate/5 transition-colors duration-150 relative"
                     >
                       {/* Kode */}
                       <td className="py-4 px-6 text-[14px] font-semibold text-ink whitespace-nowrap">
@@ -307,19 +333,42 @@ const LaboranCompetencyPage = () => {
                       </td>
 
                       {/* Mata kuliah + info button */}
-                      <td className="py-4 px-6 text-[14px] text-ink font-semibold whitespace-nowrap">
+                      <td className="py-4 px-6 text-[14px] text-ink font-semibold whitespace-nowrap relative">
                         <div className="flex items-center gap-2">
                           <span>{c.name}</span>
                           <button
                             type="button"
-                            onClick={() => setActiveCourseDesc(c)}
-                            className="w-5 h-5 rounded-full flex items-center justify-center text-royal-blue hover:bg-tint transition-colors cursor-pointer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveCourseDesc(isDescOpen ? null : c);
+                            }}
+                            className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
+                              isDescOpen
+                                ? 'bg-royal-blue text-white'
+                                : 'text-royal-blue hover:bg-tint'
+                            }`}
                             title={`Lihat deskripsi ${c.name}`}
                             aria-label={`Deskripsi ${c.name}`}
                           >
                             <Info size={15} />
                           </button>
                         </div>
+
+                        {/* Floating Tooltip Card (Persis Gambar 5 tanpa backdrop & tanpa modal) */}
+                        {isDescOpen && (
+                          <div
+                            ref={descPopoverRef}
+                            onClick={(e) => e.stopPropagation()}
+                            className="absolute left-6 top-[82%] mt-1 z-40 w-[320px] sm:w-[380px] bg-white border border-line rounded-[12px] p-4 shadow-xl animate-fade-in text-left select-none"
+                          >
+                            <h4 className="text-[14px] font-bold text-navy leading-snug">
+                              {c.name} ({c.code})
+                            </h4>
+                            <p className="text-[12px] text-slate mt-1.5 leading-relaxed font-normal">
+                              {c.description || 'Deskripsi mata kuliah belum tersedia.'}
+                            </p>
+                          </div>
+                        )}
                       </td>
 
                       {/* Semester */}
@@ -413,12 +462,6 @@ const LaboranCompetencyPage = () => {
           </button>
         </div>
       </div>
-
-      {/* Pop-up Deskripsi Mata Kuliah (i) */}
-      <CourseDescriptionModal
-        course={activeCourseDesc}
-        onClose={() => setActiveCourseDesc(null)}
-      />
 
       {/* Toast Notification */}
       <Toast

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import LaboranLayout from '../../components/laboran/LaboranLayout';
 import SarprasTable from '../../components/laboran/SarprasTable';
 import SarprasFormDialog from '../../components/laboran/SarprasFormDialog';
@@ -123,9 +123,8 @@ const SarprasPage = () => {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="h-[44px] px-5 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue inline-flex items-center gap-1.5"
+          className="h-[44px] px-5 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer self-start sm:self-auto shrink-0 shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue inline-flex items-center"
         >
-          <Plus size={18} />
           <span>+Tambah Data</span>
         </button>
       </div>
