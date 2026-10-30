@@ -318,14 +318,15 @@ const LaboranCompetencyPage = () => {
                   </td>
                 </tr>
               ) : (
-                filteredCourses.map((c) => {
+                filteredCourses.map((c, index) => {
                   const isFilled = c.score !== null && c.score !== undefined && c.score !== '';
                   const isDescOpen = activeCourseDesc?.id === c.id;
+                  const isNearBottom = index >= Math.max(0, filteredCourses.length - 2);
 
                   return (
                     <tr
                       key={c.id || c.code}
-                      className="hover:bg-slate/5 transition-colors duration-150 relative"
+                      className="hover:bg-slate/5 transition-colors duration-150"
                     >
                       {/* Kode */}
                       <td className="py-4 px-6 text-[14px] font-semibold text-ink whitespace-nowrap">
@@ -333,8 +334,8 @@ const LaboranCompetencyPage = () => {
                       </td>
 
                       {/* Mata kuliah + info button */}
-                      <td className="py-4 px-6 text-[14px] text-ink font-semibold whitespace-nowrap relative">
-                        <div className="flex items-center gap-2">
+                      <td className="py-4 px-6 text-[14px] text-ink font-semibold whitespace-nowrap">
+                        <div className="relative inline-flex items-center gap-2">
                           <span>{c.name}</span>
                           <button
                             type="button"
@@ -352,23 +353,25 @@ const LaboranCompetencyPage = () => {
                           >
                             <Info size={15} />
                           </button>
-                        </div>
 
-                        {/* Floating Tooltip Card (Persis Gambar 5 tanpa backdrop & tanpa modal) */}
-                        {isDescOpen && (
-                          <div
-                            ref={descPopoverRef}
-                            onClick={(e) => e.stopPropagation()}
-                            className="absolute left-6 top-[82%] mt-1 z-40 w-[320px] sm:w-[380px] bg-white border border-line rounded-[12px] p-4 shadow-xl animate-fade-in text-left select-none"
-                          >
-                            <h4 className="text-[14px] font-bold text-navy leading-snug">
-                              {c.name} ({c.code})
-                            </h4>
-                            <p className="text-[12px] text-slate mt-1.5 leading-relaxed font-normal">
-                              {c.description || 'Deskripsi mata kuliah belum tersedia.'}
-                            </p>
-                          </div>
-                        )}
+                          {/* Floating Description Popover (Persis Gambar 2) */}
+                          {isDescOpen && (
+                            <div
+                              ref={descPopoverRef}
+                              onClick={(e) => e.stopPropagation()}
+                              className={`absolute left-0 z-40 w-[275px] sm:w-[295px] max-w-[calc(100vw-60px)] bg-white border border-line rounded-[12px] p-3.5 shadow-xl animate-fade-in text-left whitespace-normal select-none ${
+                                isNearBottom ? 'bottom-full mb-2' : 'top-full mt-2'
+                              }`}
+                            >
+                              <h4 className="text-[13px] font-bold text-navy leading-snug">
+                                {c.name} ({c.code})
+                              </h4>
+                              <p className="text-[12px] text-slate mt-1.5 leading-relaxed font-normal break-words">
+                                {c.description || 'Deskripsi mata kuliah belum tersedia.'}
+                              </p>
+                            </div>
+                          )}
+                        </div>
                       </td>
 
                       {/* Semester */}
