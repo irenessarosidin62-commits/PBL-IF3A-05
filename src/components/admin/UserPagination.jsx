@@ -16,11 +16,11 @@ const UserPagination = ({ currentPage, totalPages, totalItems, onPageChange }) =
       }
     } else {
       if (currentPage <= 3) {
-        pages.push(1, 2, 3, '...', totalPages);
+        pages.push(1, 2, 3, '....', totalPages);
       } else if (currentPage >= totalPages - 2) {
-        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+        pages.push(1, '....', totalPages - 2, totalPages - 1, totalPages);
       } else {
-        pages.push(1, '...', currentPage, '...', totalPages);
+        pages.push(1, '....', currentPage, '....', totalPages);
       }
     }
     return pages;
@@ -32,7 +32,7 @@ const UserPagination = ({ currentPage, totalPages, totalItems, onPageChange }) =
     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
       {/* Left count text */}
       <p className="text-[14px] text-ink font-medium">
-        Menampilkan {startItem}–{endItem} dari {totalItems} pengguna
+        Menampilkan {startItem}-{endItem} dari {totalItems} pengguna
       </p>
 
       {/* Right controls */}
@@ -54,13 +54,13 @@ const UserPagination = ({ currentPage, totalPages, totalItems, onPageChange }) =
         {/* Page numbers */}
         <div className="flex items-center gap-1.5">
           {pages.map((p, idx) => {
-            if (p === '...') {
+            if (p === '....' || p === '...') {
               return (
                 <span
                   key={`ellipsis-${idx}`}
-                  className="w-[38px] h-[38px] flex items-center justify-center text-slate text-[14px] select-none"
+                  className="w-[38px] h-[38px] rounded-[8px] border border-line bg-white flex items-center justify-center text-slate text-[13px] font-bold select-none"
                 >
-                  ...
+                  ....
                 </span>
               );
             }

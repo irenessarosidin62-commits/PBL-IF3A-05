@@ -131,7 +131,7 @@ const UserImportDialog = ({
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onClick={() => fileInputRef.current?.click()}
-              className="border border-royal-blue/30 bg-[#F0F5FF] rounded-[12px] p-8 text-center cursor-pointer hover:bg-[#E8EFFE] transition-colors mb-3"
+              className="border border-[#BFD4FF] bg-white rounded-[12px] p-8 text-center cursor-pointer hover:bg-[#F8FAFF] transition-colors mb-3"
             >
               <input
                 ref={fileInputRef}
@@ -160,7 +160,7 @@ const UserImportDialog = ({
                 onClick={downloadExcelTemplate}
                 className="text-[13px] font-semibold text-royal-blue hover:underline cursor-pointer"
               >
-                Unduh templat Excel
+                Unduh template Excel
               </button>
             </div>
 
@@ -195,10 +195,10 @@ const UserImportDialog = ({
             </div>
 
             {/* Error List Container */}
-            <div className="border border-line rounded-[12px] p-3 max-h-56 overflow-y-auto space-y-2 mb-6">
+            <div className="border border-[#BFD4FF] rounded-[10px] overflow-hidden bg-white max-h-56 overflow-y-auto divide-y divide-[#D8E0EE] mb-6">
               {errorList.map((err, idx) => (
-                <div key={idx} className="flex items-start text-[13px] py-1 px-2 rounded hover:bg-slate/5">
-                  <span className="font-bold text-ink w-20 shrink-0">
+                <div key={idx} className="flex items-center text-[13px] sm:text-[14px] py-2.5 px-4">
+                  <span className="font-bold text-ink w-24 shrink-0">
                     Baris {err.row}
                   </span>
                   <span className="text-danger font-medium">

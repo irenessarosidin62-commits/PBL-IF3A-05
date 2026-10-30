@@ -63,11 +63,11 @@ const UserDeleteDialog = ({
         className="w-full max-w-[480px] bg-white rounded-[16px] p-7 shadow-2xl relative animate-scale-up"
       >
         <h2 id="delete-dialog-title" className="text-[20px] font-bold text-navy mb-3">
-          Hapus pengguna?
+          Hapus pengguna
         </h2>
 
         <p className="text-[14px] text-ink leading-relaxed mb-6">
-          Akun <span className="font-bold">{user.name}</span> ({user.role}) akan dihapus. Tindakan ini tidak bisa dibatalkan.
+          Akun <span className="font-bold">{user.name} ({user.role})</span> akan dihapus. Tindakan ini tidak bisa dibatalkan.
         </p>
 
         <div className="flex items-center justify-end gap-3">

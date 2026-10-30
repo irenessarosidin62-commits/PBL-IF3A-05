@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { FILTER_ROLES } from '../../constants/userConstants';
 
 const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) => {
@@ -52,15 +52,12 @@ const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) =
     <div className="flex flex-col sm:flex-row gap-3.5 mb-6">
       {/* Search Input */}
       <div className="relative flex-1">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate">
-          <Search size={18} />
-        </div>
         <input
           type="text"
           value={localSearch}
           onChange={(e) => setLocalSearch(e.target.value)}
           placeholder="Cari nama, NIP/NIK, atau surel"
-          className="w-full h-[44px] bg-white border border-line rounded-[10px] pl-10 pr-4 text-[14px] text-ink placeholder:text-slate/70 focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow"
+          className="w-full h-[44px] bg-white border border-line rounded-[10px] px-4 text-[14px] text-ink placeholder:text-slate/70 focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow"
           aria-label="Cari pengguna"
         />
       </div>
@@ -70,14 +67,16 @@ const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) =
         <button
           type="button"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="w-full sm:w-[200px] h-[44px] bg-white border border-line rounded-[10px] px-4 flex items-center justify-between text-[14px] font-semibold text-ink focus:outline-none focus:border-royal-blue focus:ring-[3px] focus:ring-focus-ring transition-shadow cursor-pointer"
+          className={`w-full sm:w-[200px] h-[44px] bg-white border rounded-[10px] px-4 flex items-center justify-between text-[14px] font-semibold text-ink focus:outline-none focus:ring-[3px] focus:ring-focus-ring transition-all cursor-pointer ${
+            isDropdownOpen ? 'border-royal-blue' : 'border-line'
+          }`}
           aria-expanded={isDropdownOpen}
           aria-haspopup="listbox"
           aria-label="Filter berdasarkan peran"
         >
           <span className="truncate">{selectedRole}</span>
           {isDropdownOpen ? (
-            <ChevronUp size={18} className="text-slate shrink-0 ml-2" />
+            <ChevronUp size={18} className="text-ink shrink-0 ml-2" />
           ) : (
             <ChevronDown size={18} className="text-slate shrink-0 ml-2" />
           )}
@@ -85,7 +84,7 @@ const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) =
 
         {isDropdownOpen && (
           <div
-            className="absolute right-0 mt-1.5 w-full sm:w-[200px] bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in"
+            className="absolute right-0 mt-1.5 w-full sm:w-[200px] bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-40 animate-fade-in space-y-1"
             role="listbox"
           >
             {FILTER_ROLES.map((role) => {
@@ -100,8 +99,8 @@ const UserFilterBar = ({ search, onSearchChange, selectedRole, onRoleChange }) =
                   }}
                   className={`w-full text-left px-3 py-2 text-[14px] rounded-[8px] transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-tint text-royal-blue font-bold'
-                      : 'text-ink hover:bg-slate/5 font-medium'
+                      ? 'bg-tint border border-royal-blue text-ink font-semibold'
+                      : 'text-slate hover:text-ink hover:bg-slate/5 font-semibold border border-transparent'
                   }`}
                   role="option"
                   aria-selected={isSelected}
