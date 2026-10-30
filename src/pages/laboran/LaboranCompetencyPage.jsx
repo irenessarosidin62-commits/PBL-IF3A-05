@@ -192,11 +192,17 @@ const LaboranCompetencyPage = () => {
     });
   };
 
-  // Current courses for active prodi
-  const currentProdiCourses = coursesByProdi[prodi] || [];
+  // Filter courses for active prodi based on period semester ('Ganjil' vs 'Genap')
+  const periodCoursesForProdi = (coursesByProdi[prodi] || []).filter((c) => {
+    if (semester === 'Ganjil') {
+      return Number(c.semester) % 2 !== 0; // Ganjil: 1, 3, 5, 7
+    } else {
+      return Number(c.semester) % 2 === 0; // Genap: 2, 4, 6, 8 (kosong karena hanya Ganjil yang aktif)
+    }
+  });
 
-  // Filtered by search query and selected semester filter
-  const filteredCourses = currentProdiCourses.filter((c) => {
+  // Filtered by search query and selected semester filter (within active period)
+  const filteredCourses = periodCoursesForProdi.filter((c) => {
     const q = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !q ||
@@ -210,8 +216,17 @@ const LaboranCompetencyPage = () => {
     return matchesSearch && matchesSemester;
   });
 
-  // Calculate global progress across ALL prodis
-  const allCoursesFlat = Object.values(coursesByProdi).flat();
+  // Calculate global progress across ALL prodis for the selected period semester
+  const allCoursesFlat = Object.values(coursesByProdi)
+    .flat()
+    .filter((c) => {
+      if (semester === 'Ganjil') {
+        return Number(c.semester) % 2 !== 0;
+      } else {
+        return Number(c.semester) % 2 === 0;
+      }
+    });
+
   const totalCoursesCount = allCoursesFlat.length;
   const filledCoursesCount = allCoursesFlat.filter(
     (c) => c.score !== null && c.score !== undefined && c.score !== ''
@@ -238,6 +253,7 @@ const LaboranCompetencyPage = () => {
 
   // Save Draft
   const handleSaveDraft = async () => {
+    if (totalCoursesCount === 0) return;
     setIsSubmitting(true);
     try {
       await saveDraftLaboranCompetencies(coursesByProdi);
@@ -251,7 +267,7 @@ const LaboranCompetencyPage = () => {
 
   // Kirim (Final Submission)
   const handleSubmit = async () => {
-    if (!isAllFilled) return;
+    if (!isAllFilled || totalCoursesCount === 0) return;
     setIsSubmitting(true);
     try {
       await submitLaboranCompetencies(coursesByProdi);
@@ -414,8 +430,15 @@ const LaboranCompetencyPage = () => {
                 <tr>
                   <td colSpan={6} className="py-12 text-center text-slate">
                     <p className="text-[14px] font-medium text-slate">
-                      Tidak ada data mata kuliah yang cocok dengan filter atau pencarian.
+                      {semester === 'Genap'
+                        ? 'Tidak ada data mata kuliah untuk semester Genap.'
+                        : 'Tidak ada data mata kuliah yang cocok dengan filter atau pencarian.'}
                     </p>
+                    {semester === 'Genap' && (
+                      <p className="text-[12px] text-slate/70 mt-1">
+                        Formulir kompetensi hanya tersedia untuk periode semester aktif (Ganjil).
+                      </p>
+                    )}
                   </td>
                 </tr>
               ) : (
@@ -537,7 +560,9 @@ const LaboranCompetencyPage = () => {
             <span className="text-slate font-medium text-[13px]">(semua prodi)</span>
           </p>
           <p className="text-[12px] text-slate mt-0.5 font-normal">
-            Kirim aktif setelah semua isian terisi.
+            {totalCoursesCount === 0
+              ? 'Tidak ada formulir yang perlu diisi pada semester ini.'
+              : 'Kirim aktif setelah semua isian terisi.'}
           </p>
         </div>
 
@@ -546,8 +571,12 @@ const LaboranCompetencyPage = () => {
           <button
             type="button"
             onClick={handleSaveDraft}
-            disabled={isSubmitting}
-            className="h-[44px] px-6 border border-royal-blue rounded-[10px] text-royal-blue font-bold text-[14px] bg-white hover:bg-tint active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-royal-blue disabled:opacity-60"
+            disabled={isSubmitting || totalCoursesCount === 0}
+            className={`h-[44px] px-6 border rounded-[10px] font-bold text-[14px] transition-all focus:outline-none focus:ring-2 ${
+              totalCoursesCount > 0 && !isSubmitting
+                ? 'border-royal-blue text-royal-blue bg-white hover:bg-tint active:scale-[0.98] cursor-pointer focus:ring-royal-blue'
+                : 'border-line text-slate/40 bg-disabled-bg cursor-not-allowed opacity-70'
+            }`}
           >
             Simpan draf
           </button>
@@ -555,9 +584,9 @@ const LaboranCompetencyPage = () => {
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={!isAllFilled || isSubmitting}
+            disabled={!isAllFilled || isSubmitting || totalCoursesCount === 0}
             className={`h-[44px] px-8 rounded-[10px] font-bold text-[14px] transition-all focus:outline-none focus:ring-2 ${
-              isAllFilled && !isSubmitting
+              isAllFilled && !isSubmitting && totalCoursesCount > 0
                 ? 'bg-royal-blue hover:bg-[#153eb5] text-white active:scale-[0.98] cursor-pointer shadow-xs focus:ring-royal-blue'
                 : 'bg-[#D1D5DB] text-[#6B7280] cursor-not-allowed opacity-80'
             }`}

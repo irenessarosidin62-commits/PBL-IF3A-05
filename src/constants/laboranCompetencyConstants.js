@@ -32,7 +32,7 @@ export const SCORE_OPTIONS = [
   { value: '8', label: '8 - Mengembangkan' }
 ];
 
-// Data Mata Kuliah Dummy per Prodi
+// Data Mata Kuliah Dummy per Prodi (Semua periode aktif adalah Semester Ganjil: 1, 3, 5, 7)
 // 6 Mata Kuliah Teknik Informatika (4 terisi awal sesuai Gambar 2, 2 belum terisi)
 // 6 Mata Kuliah TRPL (semua belum terisi) -> Total 12 mata kuliah, 4 terisi awal
 export const INITIAL_COURSES_BY_PRODI = {
@@ -106,7 +106,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-2',
       code: 'TR102',
       name: 'Basis Data Terapan',
-      semester: 2,
+      semester: 1,
       sks: 3,
       score: null,
       description: 'Membahas perancangan basis data relasional dan non-relasional, indexing, optimasi query, dan replikasi basis data terdistribusi.'
@@ -124,7 +124,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-4',
       code: 'TR202',
       name: 'Manajemen Konfigurasi dan Rilis',
-      semester: 4,
+      semester: 3,
       sks: 2,
       score: null,
       description: 'Membahas version control sistematis, branching strategy, release management, otomatisasi build, dan continuous integration.'
@@ -142,7 +142,7 @@ export const INITIAL_COURSES_BY_PRODI = {
       id: 'tr-6',
       code: 'TR302',
       name: 'Pengujian dan Penjaminan Kualitas PL',
-      semester: 6,
+      semester: 5,
       sks: 3,
       score: null,
       description: 'Metodologi software quality assurance (SQA), end-to-end testing, test automation, dan audit kualitas perangkat lunak.'
