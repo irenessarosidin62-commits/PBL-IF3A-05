@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
+import BerandaDosen from './pages/BerandaDosen';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/beranda-dosen" element={<BerandaDosen />} />
           <Route path="/data-kurikulum" element={<CurriculumPage />} />
 
           {/* Protected Routes per Role */}
@@ -42,7 +44,7 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Dosen" />}>
-            <Route path="/dosen" element={<DashboardPlaceholder />} />
+            <Route path="/dosen" element={<BerandaDosen />} />
           </Route>
 
           {/* Fallback */}
