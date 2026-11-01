@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp, AlertCircle } from 'lucide-react';
 import TuLayout from '../../components/tu/TuLayout';
 import Toast from '../../components/common/Toast';
 import DatePicker from '../../components/common/DatePicker';
+import DeskripsiMataKuliahPopup from '../../components/common/DeskripsiMataKuliahPopup';
 import {
   ACADEMIC_YEARS,
   SEMESTERS,
@@ -11,8 +12,9 @@ import {
   ADVISOR_ASPECTS
 } from '../../constants/competencyConstants';
 import { createForm } from '../../services/competencyService';
+import { getFilteredMataKuliah } from '../../data/mataKuliah';
 
-// Custom dropdown for Tahun Ajaran, Semester, Kurikulum (sesuai Gambar 3)
+// Custom dropdown for Tahun Ajaran, Semester, Kurikulum
 const FilterDropdown = ({ label, placeholder, options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -28,7 +30,7 @@ const FilterDropdown = ({ label, placeholder, options, value, onChange }) => {
   }, []);
 
   return (
-    <div className="relative flex-1 min-w-[150px]" ref={ref}>
+    <div className="relative w-full min-w-0" ref={ref}>
       <label className="block text-[12px] font-semibold text-ink mb-1.5">
         {label}
       </label>
@@ -52,7 +54,7 @@ const FilterDropdown = ({ label, placeholder, options, value, onChange }) => {
 
       {isOpen && (
         <div
-          className="absolute left-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-20 animate-fade-in space-y-1"
+          className="absolute left-0 mt-1.5 w-full bg-white border border-line rounded-[12px] p-1.5 shadow-lg z-30 animate-fade-in space-y-1"
           role="listbox"
         >
           {options.map((opt) => {
@@ -99,6 +101,9 @@ const CreateCompetencyFormPage = () => {
   const [generatedCourses, setGeneratedCourses] = useState([]);
   const [validationError, setValidationError] = useState('');
 
+  // Active popup course description (code of open popup, null if closed)
+  const [activeCourseDesc, setActiveCourseDesc] = useState(null);
+
   // Accordion open state for Section B (key: aspect code, default all closed)
   const [openAccordions, setOpenAccordions] = useState({});
 
@@ -134,6 +139,7 @@ const CreateCompetencyFormPage = () => {
   // Handle "Bentuk Form" click
   const handleGenerateForm = () => {
     setValidationError('');
+    setActiveCourseDesc(null);
 
     if (!academicYear) {
       setValidationError('Tahun ajaran wajib dipilih.');
@@ -178,24 +184,21 @@ const CreateCompetencyFormPage = () => {
       return;
     }
 
-    // Generate courses according to semester (Ganjil vs Genap)
-    if (semester === 'Ganjil') {
-      setGeneratedCourses([
-        { code: 'IF301', name: 'Interaksi Manusia Komputer', semester: 3, sks: 3 },
-        { code: 'IF302', name: 'Mata Kuliah Pilihan Web', semester: 3, sks: 3 },
-        { code: 'IF303', name: 'Statistika', semester: 3, sks: 3 },
-        { code: 'IF304', name: 'Proyek Agile', semester: 3, sks: 2 }
-      ]);
-    } else {
-      setGeneratedCourses([
-        { code: 'IF201', name: 'Pemrograman Web', semester: 2, sks: 3 },
-        { code: 'IF202', name: 'Struktur Data', semester: 2, sks: 3 },
-        { code: 'IF203', name: 'Basis Data', semester: 2, sks: 3 }
-      ]);
-    }
+    // Filter mata kuliah dari single source of truth data bersama
+    const courses = getFilteredMataKuliah({
+      academicYear,
+      semester,
+      curriculum
+    });
 
+    setGeneratedCourses(courses);
     setIsFormFormed(true);
-    showToast(`Form berhasil dibentuk dari data kurikulum semester ${semester.toLowerCase()}.`);
+
+    if (courses.length > 0) {
+      showToast(`Form berhasil dibentuk dari data kurikulum semester ${semester.toLowerCase()}.`);
+    } else {
+      showToast(`Tidak ada mata kuliah untuk kurikulum ${curriculum} semester ${semester.toLowerCase()}.`, 'warning');
+    }
   };
 
   // Handle "Simpan draf" click
@@ -248,47 +251,53 @@ const CreateCompetencyFormPage = () => {
         </div>
       )}
 
-      {/* Filter Row: SATU BARIS FILTER & DATE (Gambar 3 & 4) */}
+      {/* Filter Row: SATU BARIS FILTER & DATE TERSTRUKTUR GRID */}
       <div className="bg-white rounded-[14px] border border-line p-5 shadow-2xs mb-8">
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-end gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(5,minmax(0,1fr))_auto] items-end gap-3.5">
           {/* Tahun ajaran */}
-          <FilterDropdown
-            label="Tahun ajaran"
-            placeholder="Pilih tahun ajaran"
-            options={ACADEMIC_YEARS}
-            value={academicYear}
-            onChange={(val) => {
-              setAcademicYear(val);
-              setIsFormFormed(false);
-            }}
-          />
+          <div className="w-full min-w-0">
+            <FilterDropdown
+              label="Tahun ajaran"
+              placeholder="Pilih tahun ajaran"
+              options={ACADEMIC_YEARS}
+              value={academicYear}
+              onChange={(val) => {
+                setAcademicYear(val);
+                setIsFormFormed(false);
+              }}
+            />
+          </div>
 
           {/* Semester */}
-          <FilterDropdown
-            label="Semester"
-            placeholder="Pilih semester"
-            options={SEMESTERS}
-            value={semester}
-            onChange={(val) => {
-              setSemester(val);
-              setIsFormFormed(false);
-            }}
-          />
+          <div className="w-full min-w-0">
+            <FilterDropdown
+              label="Semester"
+              placeholder="Pilih semester"
+              options={SEMESTERS}
+              value={semester}
+              onChange={(val) => {
+                setSemester(val);
+                setIsFormFormed(false);
+              }}
+            />
+          </div>
 
           {/* Kurikulum */}
-          <FilterDropdown
-            label="Kurikulum"
-            placeholder="Pilih kurikulum"
-            options={CURRICULUMS}
-            value={curriculum}
-            onChange={(val) => {
-              setCurriculum(val);
-              setIsFormFormed(false);
-            }}
-          />
+          <div className="w-full min-w-0">
+            <FilterDropdown
+              label="Kurikulum"
+              placeholder="Pilih kurikulum"
+              options={CURRICULUMS}
+              value={curriculum}
+              onChange={(val) => {
+                setCurriculum(val);
+                setIsFormFormed(false);
+              }}
+            />
+          </div>
 
           {/* Mulai pengisian */}
-          <div className="flex-1 min-w-[140px]">
+          <div className="w-full min-w-0">
             <label htmlFor="input-start-date" className="block text-[12px] font-semibold text-ink mb-1.5">
               Mulai pengisian
             </label>
@@ -306,7 +315,7 @@ const CreateCompetencyFormPage = () => {
           </div>
 
           {/* Batas pengisian */}
-          <div className="flex-1 min-w-[140px]">
+          <div className="w-full min-w-0">
             <label htmlFor="input-end-date" className="block text-[12px] font-semibold text-ink mb-1.5">
               Batas pengisian
             </label>
@@ -324,11 +333,11 @@ const CreateCompetencyFormPage = () => {
           </div>
 
           {/* Tombol Bentuk Form */}
-          <div className="shrink-0 mt-2 lg:mt-0">
+          <div className="w-full xl:w-auto shrink-0">
             <button
               type="button"
               onClick={handleGenerateForm}
-              className="w-full lg:w-auto h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue"
+              className="w-full xl:w-auto h-[44px] px-6 bg-royal-blue hover:bg-[#153eb5] active:scale-[0.98] text-white font-bold text-[14px] rounded-[10px] transition-all duration-200 cursor-pointer shadow-xs focus:outline-none focus:ring-2 focus:ring-royal-blue whitespace-nowrap"
             >
               Bentuk Form
             </button>
@@ -348,10 +357,19 @@ const CreateCompetencyFormPage = () => {
         </div>
 
         {/* Empty State vs Formed Table */}
-        {!isFormFormed || generatedCourses.length === 0 ? (
+        {!isFormFormed ? (
           <div className="py-12 px-4 text-center text-slate border border-dashed border-line rounded-[12px] bg-ice/40 my-2">
             <p className="text-[14px] font-medium">
               Pilih periode dan kurikulum, lalu tekan Bentuk Form
+            </p>
+          </div>
+        ) : generatedCourses.length === 0 ? (
+          <div className="py-12 px-4 text-center text-slate border border-dashed border-line rounded-[12px] bg-ice/40 my-2">
+            <p className="text-[14px] font-semibold text-navy">
+              Tidak ada mata kuliah untuk periode dan kurikulum yang dipilih.
+            </p>
+            <p className="text-[12px] text-slate mt-1">
+              Kurikulum 2026 saat ini memuat data mata kuliah untuk semester Ganjil (semester 1 dan 3).
             </p>
           </div>
         ) : (
@@ -359,37 +377,51 @@ const CreateCompetencyFormPage = () => {
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr className="border-b border-line text-slate">
-                  <th scope="col" className="py-3 px-4 text-[13px] font-bold">
+                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-left align-middle whitespace-nowrap">
                     Kode
                   </th>
-                  <th scope="col" className="py-3 px-4 text-[13px] font-bold">
+                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-left align-middle">
                     Mata kuliah
                   </th>
-                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-center">
+                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-center align-middle whitespace-nowrap">
                     Semester
                   </th>
-                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-center">
+                  <th scope="col" className="py-3 px-4 text-[13px] font-bold text-center align-middle whitespace-nowrap">
                     SKS
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-line/70">
-                {generatedCourses.map((c) => (
-                  <tr key={c.code} className="hover:bg-slate/5 transition-colors">
-                    <td className="py-3.5 px-4 text-[14px] font-bold text-navy">
-                      {c.code}
-                    </td>
-                    <td className="py-3.5 px-4 text-[14px] font-semibold text-ink">
-                      {c.name}
-                    </td>
-                    <td className="py-3.5 px-4 text-[14px] text-slate text-center font-medium">
-                      {c.semester}
-                    </td>
-                    <td className="py-3.5 px-4 text-[14px] text-slate text-center font-medium">
-                      {c.sks}
-                    </td>
-                  </tr>
-                ))}
+                {generatedCourses.map((c, idx) => {
+                  const isNearBottom = idx >= generatedCourses.length - 2;
+                  return (
+                    <tr key={c.code} className="hover:bg-slate/5 transition-colors">
+                      <td className="py-3.5 px-4 text-[14px] font-bold text-navy align-middle whitespace-nowrap">
+                        {c.code}
+                      </td>
+                      <td className="py-3.5 px-4 text-[14px] font-semibold text-ink align-middle">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{c.name}</span>
+                          <DeskripsiMataKuliahPopup
+                            course={c}
+                            isOpen={activeCourseDesc === c.code}
+                            onToggle={() =>
+                              setActiveCourseDesc((prev) => (prev === c.code ? null : c.code))
+                            }
+                            onClose={() => setActiveCourseDesc(null)}
+                            isNearBottom={isNearBottom}
+                          />
+                        </div>
+                      </td>
+                      <td className="py-3.5 px-4 text-[14px] text-slate text-center font-medium align-middle whitespace-nowrap">
+                        {c.semester}
+                      </td>
+                      <td className="py-3.5 px-4 text-[14px] text-slate text-center font-medium align-middle whitespace-nowrap">
+                        {c.sks}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -1,5 +1,6 @@
 import * as XLSX from 'xlsx';
 import { FORM_STATUS, RECAP_STATUS } from '../constants/competencyConstants';
+import { MATA_KULIAH } from '../data/mataKuliah';
 
 const STORAGE_FORMS_KEY = 'siap_pbm_tu_forms';
 
@@ -11,14 +12,9 @@ export const INITIAL_FORMS = [
     curriculum: 'Kurikulum 2026',
     startDate: '01/10/2026',
     endDate: '30/10/2026',
-    courseCount: 4,
+    courseCount: MATA_KULIAH.length,
     status: FORM_STATUS.DRAFT,
-    courses: [
-      { code: 'IF301', name: 'Interaksi Manusia Komputer', semester: 3, sks: 3 },
-      { code: 'IF302', name: 'Mata Kuliah Pilihan Web', semester: 3, sks: 3 },
-      { code: 'IF303', name: 'Statistika', semester: 3, sks: 3 },
-      { code: 'IF304', name: 'Proyek Agile', semester: 3, sks: 2 }
-    ]
+    courses: MATA_KULIAH
   },
   {
     id: 2,
@@ -27,13 +23,9 @@ export const INITIAL_FORMS = [
     curriculum: 'Kurikulum 2025',
     startDate: '01/03/2026',
     endDate: '31/03/2026',
-    courseCount: 3,
+    courseCount: 0,
     status: FORM_STATUS.PUBLISHED,
-    courses: [
-      { code: 'IF201', name: 'Pemrograman Web', semester: 2, sks: 3 },
-      { code: 'IF202', name: 'Struktur Data', semester: 2, sks: 3 },
-      { code: 'IF203', name: 'Basis Data', semester: 2, sks: 3 }
-    ]
+    courses: []
   }
 ];
 
@@ -127,13 +119,8 @@ export const publishForm = async (id) => {
   });
 };
 
-// Data Rekap Dosen Pengajar
-export const TEACHER_COURSES = [
-  'Interaksi Manusia Komputer',
-  'Mata Kuliah Pilihan Web',
-  'Statistika',
-  'Proyek Agile'
-];
+// Data Rekap Dosen Pengajar (sinkron dengan data mata kuliah bersama)
+export const TEACHER_COURSES = MATA_KULIAH.map((m) => m.name);
 
 export const INITIAL_TEACHER_RECAP = [
   {
@@ -141,10 +128,12 @@ export const INITIAL_TEACHER_RECAP = [
     name: 'Dwi Amalia Purnamasari',
     nip: '121248',
     scores: {
-      'Interaksi Manusia Komputer': 7,
-      'Mata Kuliah Pilihan Web': 6,
-      'Statistika': 3,
-      'Proyek Agile': 6
+      'Statistika': 6,
+      'Pendidikan Kewarganegaraan': 5,
+      'Proyek Inovasi Agile': 7,
+      'Interaksi Manusia Komputer': 8,
+      'Rekayasa Perangkat Lunak Lanjut': 6,
+      'Mata Kuliah Pilihan Web': 7
     },
     status: RECAP_STATUS.FILLED
   },
@@ -153,10 +142,12 @@ export const INITIAL_TEACHER_RECAP = [
     name: 'Swono Sibagariang',
     nip: '119224',
     scores: {
-      'Interaksi Manusia Komputer': 5,
-      'Mata Kuliah Pilihan Web': 8,
-      'Statistika': 6,
-      'Proyek Agile': 2
+      'Statistika': 5,
+      'Pendidikan Kewarganegaraan': 4,
+      'Proyek Inovasi Agile': 8,
+      'Interaksi Manusia Komputer': 6,
+      'Rekayasa Perangkat Lunak Lanjut': 5,
+      'Mata Kuliah Pilihan Web': 6
     },
     status: RECAP_STATUS.FILLED
   },
@@ -172,10 +163,12 @@ export const INITIAL_TEACHER_RECAP = [
     name: 'Sri Rahayu',
     nip: '125359',
     scores: {
-      'Interaksi Manusia Komputer': 2,
-      'Mata Kuliah Pilihan Web': 4,
-      'Statistika': 1,
-      'Proyek Agile': 5
+      'Statistika': 4,
+      'Pendidikan Kewarganegaraan': 6,
+      'Proyek Inovasi Agile': 5,
+      'Interaksi Manusia Komputer': 7,
+      'Rekayasa Perangkat Lunak Lanjut': 6,
+      'Mata Kuliah Pilihan Web': 5
     },
     status: RECAP_STATUS.FILLED
   }

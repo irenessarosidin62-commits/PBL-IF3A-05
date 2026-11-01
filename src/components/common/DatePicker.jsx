@@ -136,8 +136,8 @@ const DatePicker = ({
 
   // Quick action: Today
   const handleSelectToday = () => {
-    const today = new Date();
-    onChange(formatDateString(today));
+    const now = new Date();
+    onChange(formatDateString(now));
     setIsOpen(false);
   };
 
@@ -190,7 +190,7 @@ const DatePicker = ({
   const selectedDate = parseDateString(value);
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div className="relative w-full min-w-0" ref={containerRef}>
       {/* Input Display Trigger */}
       <div
         id={id}
@@ -203,19 +203,19 @@ const DatePicker = ({
             handleToggle();
           }
         }}
-        className={`w-full h-[44px] bg-white border border-line rounded-[10px] pl-3.5 pr-10 flex items-center justify-between text-[13px] font-semibold transition-all duration-200 cursor-pointer select-none focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/30 ${
+        className={`w-full h-[44px] bg-white border border-line rounded-[10px] px-3.5 flex items-center justify-between text-[13px] font-semibold transition-all duration-200 cursor-pointer select-none focus:outline-none focus:border-royal-blue focus:ring-2 focus:ring-royal-blue/30 ${
           disabled ? 'opacity-50 cursor-not-allowed bg-slate-50' : 'hover:border-slate/40'
         } ${isOpen ? 'border-royal-blue ring-2 ring-royal-blue/30' : ''}`}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-label={label || 'Pilih tanggal'}
       >
-        <span className={value ? 'text-ink' : 'text-slate/60 font-normal'}>
+        <span className={value ? 'text-ink truncate' : 'text-slate/60 truncate font-normal'}>
           {value || placeholder}
         </span>
         <CalendarIcon
           size={16}
-          className={`shrink-0 transition-colors ${
+          className={`shrink-0 ml-1.5 transition-colors ${
             isOpen ? 'text-royal-blue' : 'text-slate'
           }`}
         />
@@ -226,7 +226,7 @@ const DatePicker = ({
         <div
           className={`absolute ${
             align === 'right' ? 'right-0 origin-top-right' : 'left-0 origin-top-left'
-          } mt-2 w-[290px] sm:w-[310px] bg-white border border-line rounded-[14px] p-3.5 shadow-xl z-50 animate-scale-up text-ink`}
+          } mt-2 w-[285px] sm:w-[305px] max-w-[calc(100vw-32px)] bg-white border border-line rounded-[14px] p-3.5 shadow-xl z-50 animate-scale-up text-ink`}
           role="dialog"
           aria-modal="true"
           aria-label="Kalender pemilih tanggal"
@@ -248,7 +248,7 @@ const DatePicker = ({
               <select
                 value={viewMonth}
                 onChange={(e) => setViewMonth(Number(e.target.value))}
-                className="bg-slate/5 hover:bg-slate/10 border border-line/60 rounded-[8px] py-1 px-2 text-[13px] font-bold text-navy cursor-pointer focus:outline-none focus:ring-1 focus:ring-royal-blue transition-colors"
+                className="bg-slate/5 hover:bg-slate/10 border border-line/60 rounded-[8px] py-1 px-2 text-[12px] sm:text-[13px] font-bold text-navy cursor-pointer focus:outline-none focus:ring-1 focus:ring-royal-blue transition-colors"
                 aria-label="Pilih bulan"
               >
                 {MONTH_NAMES.map((m, idx) => (
@@ -262,7 +262,7 @@ const DatePicker = ({
               <select
                 value={viewYear}
                 onChange={(e) => setViewYear(Number(e.target.value))}
-                className="bg-slate/5 hover:bg-slate/10 border border-line/60 rounded-[8px] py-1 px-2 text-[13px] font-bold text-navy cursor-pointer focus:outline-none focus:ring-1 focus:ring-royal-blue transition-colors"
+                className="bg-slate/5 hover:bg-slate/10 border border-line/60 rounded-[8px] py-1 px-2 text-[12px] sm:text-[13px] font-bold text-navy cursor-pointer focus:outline-none focus:ring-1 focus:ring-royal-blue transition-colors"
                 aria-label="Pilih tahun"
               >
                 {YEAR_OPTIONS.map((y) => (
