@@ -8,7 +8,8 @@ const dummyUsers = [
   { id: 4, role: 'Laboran', nip: 'laboran123', password: 'password123', name: 'Andri Albertha Pratama', email: 'andri.a@polibatam.ac.id' },
   { id: 5, role: 'Sekjur', nip: 'sekjur123', password: 'password123', name: 'Festy Winda Sari', email: 'festy.w@polibatam.ac.id' },
   { id: 6, role: 'Kajur', nip: 'kajur123', password: 'password123', name: 'Ahmad Hamim Thohari', email: 'hamim.t@polibatam.ac.id' },
-  { id: 7, role: 'Dosen', nip: 'dosen123', password: 'password123', name: 'Nadya Satya Handayani', email: 'nadya.s@polibatam.ac.id' }
+  { id: 7, role: 'Dosen', nip: '213452', password: 'password123', name: 'Qeysha Nadine', prodi: 'Program Studi Teknik Informatika', nik: '213452', email: 'qeysha.n@polibatam.ac.id' },
+  { id: 8, role: 'Dosen', nip: 'dosen123', password: 'password123', name: 'Nadya Satya', prodi: 'Program Studi Teknik Informatika', nik: '125351', email: 'nadya.s@polibatam.ac.id' }
 ];
 
 export const loginApi = async (role, nip, password) => {
