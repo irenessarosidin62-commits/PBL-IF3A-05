@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
+import RekapKompetensiPage from './pages/kajur/RekapKompetensiPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/data-kurikulum" element={<CurriculumPage />} />
+          <Route path="/rekap-kompetensi-kajur" element={<RekapKompetensiPage />} />
 
           {/* Protected Routes per Role */}
           <Route element={<ProtectedRoute allowedRole="Admin" />}>
@@ -38,7 +40,7 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Kajur" />}>
-            <Route path="/kajur" element={<DashboardPlaceholder />} />
+            <Route path="/kajur" element={<RekapKompetensiPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Dosen" />}>
