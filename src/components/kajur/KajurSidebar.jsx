@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Users, BarChart3, Award } from 'lucide-react';
+import { Users, BarChart3, Lightbulb } from 'lucide-react';
 
 const MENU_ITEMS = [
   {
@@ -18,7 +18,7 @@ const MENU_ITEMS = [
   {
     id: 'rekomendasi',
     label: 'Rekomendasi Penugasan',
-    icon: Award,
+    icon: Lightbulb,
     path: '/kajur/rekomendasi'
   }
 ];
