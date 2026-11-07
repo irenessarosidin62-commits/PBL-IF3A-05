@@ -1007,7 +1007,7 @@ const RekapKompetensiPage = () => {
       />
 
       {/* 2. Main Layout with Sidebar on Left and Content on Right */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex w-full relative">
         {/* Sidebar Component */}
         <KajurSidebar
           isOpen={isSidebarOpen}
@@ -1015,9 +1015,10 @@ const RekapKompetensiPage = () => {
           onSelectMenu={(menuId) => setActiveMenu(menuId)}
         />
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-8 lg:px-10 py-7 sm:py-8 max-w-[1440px] w-full">
-          {/* Header Row: Greeting (Left) & Filter Bar (Right) */}
+        {/* Main Content Area: Smooth proportional expansion when sidebar collapses */}
+        <main className="flex-1 min-w-0 transition-all duration-300 ease-in-out px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
+          <div className="w-full">
+            {/* Header Row: Greeting (Left) & Filter Bar (Right) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-6">
             {/* Sapaan Pengguna */}
             <div>
@@ -1144,6 +1145,7 @@ const RekapKompetensiPage = () => {
           ) : (
             <RekapTable data={displayedCourses} emptyMessage={emptyMessage} />
           )}
+          </div>
         </main>
       </div>
 

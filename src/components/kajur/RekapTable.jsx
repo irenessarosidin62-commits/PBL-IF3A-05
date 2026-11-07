@@ -135,8 +135,16 @@ const RekapTable = ({
                       <div className="font-bold text-[#0A2352] text-[14px] leading-snug">
                         {item.name}
                       </div>
-                      <div className="text-[12px] text-[#51607A] font-medium mt-0.5">
-                        {item.code} - Smt {item.semester}
+                      <div className="text-[12px] text-[#51607A] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
+                        <span className="font-semibold text-[#0A2352]">{item.code}</span>
+                        <span className="text-gray-300">•</span>
+                        <span>Semester {item.semester}</span>
+                        {item.sks && (
+                          <>
+                            <span className="text-gray-300">•</span>
+                            <span>{item.sks} SKS</span>
+                          </>
+                        )}
                       </div>
                     </td>
 
