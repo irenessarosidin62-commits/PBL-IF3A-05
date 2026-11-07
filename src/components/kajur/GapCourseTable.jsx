@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
+import { Info } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import CourseDetailDialog from './CourseDetailDialog';
 
 const INITIAL_GAP_COURSES = [
   {
@@ -78,6 +80,7 @@ const INITIAL_GAP_COURSES = [
 
 const GapCourseTable = ({ onExportSuccess }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [detailCourse, setDetailCourse] = useState(null);
 
   // Filtered course items based on search input (name or code)
   const filteredCourses = useMemo(() => {
@@ -204,8 +207,17 @@ const GapCourseTable = ({ onExportSuccess }) => {
 
                     {/* Mata Kuliah + Info Singkat sesuai KPS (Kode, Semester, SKS) */}
                     <td className="py-3.5 px-4 border-r border-[#E2E8F0] text-left">
-                      <div className="font-bold text-[#0A2352] text-[14px] leading-snug">
-                        {item.mataKuliah}
+                      <div className="flex items-center gap-1.5 font-bold text-[#0A2352] text-[14px] leading-snug">
+                        <span>{item.mataKuliah}</span>
+                        <button
+                          type="button"
+                          onClick={() => setDetailCourse({ ...item, name: item.mataKuliah })}
+                          className="text-[#2563EB] hover:text-[#1D4ED8] p-0.5 rounded-full hover:bg-blue-50 transition cursor-pointer"
+                          title="Detail Mata Kuliah"
+                          aria-label={`Detail ${item.mataKuliah}`}
+                        >
+                          <Info size={15} strokeWidth={2.2} />
+                        </button>
                       </div>
                       <div className="text-[12px] text-[#51607A] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
                         <span className="font-semibold text-[#0A2352]">{item.code}</span>
@@ -267,6 +279,15 @@ const GapCourseTable = ({ onExportSuccess }) => {
           </tbody>
         </table>
       </div>
+
+      {/* Detail Mata Kuliah Dialog Modal */}
+      {detailCourse && (
+        <CourseDetailDialog
+          isOpen={Boolean(detailCourse)}
+          course={detailCourse}
+          onClose={() => setDetailCourse(null)}
+        />
+      )}
     </div>
   );
 };

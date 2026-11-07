@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Info } from 'lucide-react';
+import CourseDetailDialog from './CourseDetailDialog';
 
 // Color formatting based on the competency scale
 const getScoreBadge = (score) => {
@@ -23,6 +25,7 @@ const RekapTable = ({
   data = [],
   emptyMessage = 'Tidak ada data mata kuliah yang ditemukan.'
 }) => {
+  const [detailCourse, setDetailCourse] = useState(null);
   return (
     <div className="w-full">
       {/* Table Card Container */}
@@ -130,21 +133,26 @@ const RekapTable = ({
                       {item.no || index + 1}
                     </td>
 
-                    {/* Mata Kuliah */}
+                    {/* Mata Kuliah + Info Singkat sesuai KPS (Kode, Semester, SKS) */}
                     <td className="py-4 px-4 sm:px-6 text-left border-r border-[#E2E8F0]">
-                      <div className="font-bold text-[#0A2352] text-[14px] leading-snug">
-                        {item.name}
+                      <div className="flex items-center gap-1.5 font-bold text-[#0A2352] text-[14px] leading-snug">
+                        <span>{item.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => setDetailCourse(item)}
+                          className="text-[#2563EB] hover:text-[#1D4ED8] p-0.5 rounded-full hover:bg-blue-50 transition cursor-pointer"
+                          title="Detail Mata Kuliah"
+                          aria-label={`Detail ${item.name}`}
+                        >
+                          <Info size={15} strokeWidth={2.2} />
+                        </button>
                       </div>
                       <div className="text-[12px] text-[#51607A] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
                         <span className="font-semibold text-[#0A2352]">{item.code}</span>
                         <span className="text-gray-300">•</span>
                         <span>Semester {item.semester}</span>
-                        {item.sks && (
-                          <>
-                            <span className="text-gray-300">•</span>
-                            <span>{item.sks} SKS</span>
-                          </>
-                        )}
+                        <span className="text-gray-300">•</span>
+                        <span>{item.sks || 3} SKS</span>
                       </div>
                     </td>
 
@@ -216,6 +224,15 @@ const RekapTable = ({
           </span>
         </div>
       </div>
+
+      {/* Detail Mata Kuliah Dialog Modal */}
+      {detailCourse && (
+        <CourseDetailDialog
+          isOpen={Boolean(detailCourse)}
+          course={detailCourse}
+          onClose={() => setDetailCourse(null)}
+        />
+      )}
     </div>
   );
 };

@@ -318,7 +318,7 @@ const RekomendasiTable = ({
                         {index + 1}
                       </td>
 
-                      {/* 2. Mata Kuliah + Ikon Info */}
+                      {/* 2. Mata Kuliah + Info Singkat sesuai KPS (Kode, Semester, SKS) */}
                       <td className="py-3.5 px-4 border-r border-[#E2E8F0] text-left">
                         <div className="flex items-center gap-1.5 font-bold text-[#0A2352] text-[13.5px] sm:text-[14px] leading-snug">
                           <span>{item.name}</span>
@@ -331,6 +331,13 @@ const RekomendasiTable = ({
                           >
                             <Info size={15} strokeWidth={2.2} />
                           </button>
+                        </div>
+                        <div className="text-[12px] text-[#51607A] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
+                          <span className="font-semibold text-[#0A2352]">{item.code}</span>
+                          <span className="text-gray-300">•</span>
+                          <span>Semester {item.semester}</span>
+                          <span className="text-gray-300">•</span>
+                          <span>{item.sks} SKS</span>
                         </div>
                       </td>
 
