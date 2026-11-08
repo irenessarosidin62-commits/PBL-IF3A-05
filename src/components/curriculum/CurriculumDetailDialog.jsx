@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Pencil, Trash2, BookOpen } from 'lucide-react';
+import { X, Pen, Trash2, BookOpen } from 'lucide-react';
 
 const CurriculumDetailDialog = ({
   isOpen,
@@ -72,7 +72,7 @@ const CurriculumDetailDialog = ({
             </div>
 
             {course.description && (
-              <div className="grid grid-cols-3 gap-2 pt-1 border-t border-gray-200/60">
+              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-gray-200/60">
                 <span className="font-semibold text-[#51607A]">Deskripsi Singkat</span>
                 <span className="col-span-2 text-[#0F1B33] leading-relaxed text-[13px]">
                   {course.description}
@@ -139,23 +139,25 @@ const CurriculumDetailDialog = ({
           </div>
         </div>
 
-        {/* Action Buttons Footer */}
+        {/* Action Buttons Footer (Gaya Tombol Disamakan dengan Branch Admin) */}
         <div className="px-6 sm:px-7 py-4 border-t border-gray-100 flex items-center justify-between gap-3 shrink-0 bg-white">
+          {/* Tombol Hapus: Style Admin (border merah, text danger, background putih, hover bg-danger/5) */}
           <button
             type="button"
             onClick={() => onDelete(course)}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-[13px] font-bold text-red-600 hover:bg-red-50 rounded-[8px] transition-colors cursor-pointer"
+            className="h-[36px] px-4 border border-danger rounded-[8px] bg-white text-danger text-[13px] font-semibold hover:bg-danger/5 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-danger cursor-pointer"
           >
             <Trash2 size={15} />
             <span>Hapus Mata Kuliah</span>
           </button>
 
+          {/* Tombol Ubah: Style Admin (border line, text navy, background putih, hover bg-slate/5) */}
           <button
             type="button"
             onClick={() => onEdit(course)}
-            className="flex items-center gap-1.5 px-5 py-2 text-xs sm:text-[13px] font-bold text-white bg-[#0045C7] hover:bg-[#0038A8] rounded-[8px] transition-colors shadow-xs cursor-pointer"
+            className="h-[36px] px-4 border border-line rounded-[8px] bg-white text-navy text-[13px] font-semibold hover:bg-slate/5 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-royal-blue cursor-pointer"
           >
-            <Pencil size={14} />
+            <Pen size={15} />
             <span>Ubah Data</span>
           </button>
         </div>

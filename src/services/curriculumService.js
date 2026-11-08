@@ -2,13 +2,22 @@ import * as XLSX from 'xlsx';
 
 const STORAGE_KEY = 'siap_pbm_curriculum';
 
+export const COURSE_DESCRIPTIONS = {
+  'IF318': 'Mata kuliah ini membahas konsep dasar probabilitas, statistika deskriptif, inferensial, serta penerapannya dalam analisis data komputasi.',
+  'PK31F': 'Mata kuliah ini membentuk wawasan kebangsaan, integritas, dan kesadaran hak dan kewajiban warga negara dalam konteks profesional TI.',
+  'IF314': 'Mata kuliah berbasis proyek tim untuk mengembangkan produk perangkat lunak menggunakan metodologi Scrum dan prinsip Agile.',
+  'IF317': 'Mata kuliah ini mempelajari prinsip desain antarmuka pengguna (UI), pengalaman pengguna (UX), evaluasi heuristik, dan pengujian kegunaan.',
+  'IF315': 'Mata kuliah ini mendalami arsitektur perangkat lunak lanjutan, pola desain, pengujian otomatis, dan DevOps.',
+  'IF316': 'Mata kuliah ini membahas konsep dan praktik pengembangan aplikasi web modern dengan menggunakan framework.'
+};
+
 export const INITIAL_COURSES = [
-  { id: 1, code: 'IF318', name: 'Statistika', semester: 3, sks: 2, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027' },
-  { id: 2, code: 'PK31F', name: 'Pendidikan Kewarganegaraan', semester: 3, sks: 5, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027' },
-  { id: 3, code: 'IF314', name: 'Proyek Inovasi Agile', semester: 3, sks: 6, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027' },
-  { id: 4, code: 'IF317', name: 'Interaksi Manusia Komputer', semester: 1, sks: 4, sesiTeori: 14, sesiPraktik: 14, peserta: 100, prodi: 'Teknik Informatika', academicYear: '2026/2027' },
-  { id: 5, code: 'IF315', name: 'Rekayasa Perangkat Lunak Lanjut', semester: 1, sks: 3, sesiTeori: 14, sesiPraktik: 14, peserta: 100, prodi: 'Teknik Informatika', academicYear: '2026/2027' },
-  { id: 6, code: 'IF316', name: 'Mata Kuliah Pilihan Web', semester: 3, sks: 2, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027' }
+  { id: 1, code: 'IF318', name: 'Statistika', semester: 3, sks: 2, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['IF318'] },
+  { id: 2, code: 'PK31F', name: 'Pendidikan Kewarganegaraan', semester: 3, sks: 5, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['PK31F'] },
+  { id: 3, code: 'IF314', name: 'Proyek Inovasi Agile', semester: 1, sks: 6, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['IF314'] },
+  { id: 4, code: 'IF317', name: 'Interaksi Manusia Komputer', semester: 1, sks: 4, sesiTeori: 14, sesiPraktik: 14, peserta: 100, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['IF317'] },
+  { id: 5, code: 'IF315', name: 'Rekayasa Perangkat Lunak Lanjut', semester: 3, sks: 3, sesiTeori: 14, sesiPraktik: 14, peserta: 100, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['IF315'] },
+  { id: 6, code: 'IF316', name: 'Mata Kuliah Pilihan Web', semester: 3, sks: 2, sesiTeori: 14, sesiPraktik: 14, peserta: 90, prodi: 'Teknik Informatika', academicYear: '2026/2027', description: COURSE_DESCRIPTIONS['IF316'] }
 ];
 
 export const getStoredCurriculum = () => {
@@ -26,6 +35,7 @@ export const getStoredCurriculum = () => {
     return parsed.map((c) => ({
       ...c,
       code: c.code === 'PKJIF' ? 'PK31F' : c.code,
+      description: COURSE_DESCRIPTIONS[c.code] || c.description || 'Mata kuliah kurikulum program studi.',
       semester: Number(c.semester) || 1,
       sks: Number(c.sks) || 2,
       sesiTeori: Number(c.sesiTeori) || 14,
