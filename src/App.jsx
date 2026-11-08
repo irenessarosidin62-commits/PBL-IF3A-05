@@ -5,6 +5,8 @@ import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
+import AnalisisGapSekjurPage from './pages/sekjur/AnalisisGapSekjurPage';
+import DistribusiIBPPRPage from './pages/sekjur/DistribusiIBPPRPage';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
@@ -34,7 +36,9 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Sekjur" />}>
-            <Route path="/sekjur" element={<DashboardPlaceholder />} />
+            <Route path="/sekjur" element={<AnalisisGapSekjurPage />} />
+            <Route path="/sekjur/analisis-gap" element={<AnalisisGapSekjurPage />} />
+            <Route path="/sekjur/distribusi-ibppr" element={<DistribusiIBPPRPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Kajur" />}>
