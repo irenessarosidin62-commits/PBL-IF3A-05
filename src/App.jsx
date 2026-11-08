@@ -4,6 +4,9 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import UserManagementPage from './pages/admin/UserManagementPage';
 import CurriculumPage from './pages/kps/CurriculumPage';
+import RekapKompetensiPage from './pages/kajur/RekapKompetensiPage';
+import AnalisisGapPage from './pages/kajur/AnalisisGapPage';
+import RekomendasiPenugasanPage from './pages/kajur/RekomendasiPenugasanPage';
 import DashboardPlaceholder from './pages/DashboardPlaceholder';
 import ProtectedRoute from './routes/ProtectedRoute';
 
@@ -15,6 +18,9 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/data-kurikulum" element={<CurriculumPage />} />
+          <Route path="/rekap-kompetensi-kajur" element={<RekapKompetensiPage />} />
+          <Route path="/analisis-gap-kajur" element={<AnalisisGapPage />} />
+          <Route path="/rekomendasi-penugasan-kajur" element={<RekomendasiPenugasanPage />} />
 
           {/* Protected Routes per Role */}
           <Route element={<ProtectedRoute allowedRole="Admin" />}>
@@ -38,7 +44,10 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Kajur" />}>
-            <Route path="/kajur" element={<DashboardPlaceholder />} />
+            <Route path="/kajur" element={<RekapKompetensiPage />} />
+            <Route path="/kajur/analisis-gap" element={<AnalisisGapPage />} />
+            <Route path="/kajur/rekomendasi" element={<RekomendasiPenugasanPage />} />
+            <Route path="/kajur/rekomendasi-penugasan" element={<RekomendasiPenugasanPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRole="Dosen" />}>
