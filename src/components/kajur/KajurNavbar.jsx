@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, LogOut } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/logo.png';
+
+const getInitials = (name) => {
+  if (!name || typeof name !== 'string') return 'AH';
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'AH';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+};
 
 const KajurNavbar = ({ isSidebarOpen, onToggleSidebar }) => {
   const { user, logout } = useAuth();
@@ -10,11 +18,11 @@ const KajurNavbar = ({ isSidebarOpen, onToggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef(null);
 
-  const userName = user?.name || 'Irenessa Rosidin';
-  const userNik = user?.nik || user?.nip || '213452';
+  const userName = user?.name || 'Ahmad Hamim Thohari';
+  const userNik = user?.nik || user?.nip || '115143';
   const userRole = user?.role === 'Kajur' || !user ? 'Ketua Jurusan' : user.role;
   const userProdi = user?.prodi || 'Program Studi Teknik Informatika';
-  const userInitials = 'IR';
+  const userInitials = getInitials(userName);
 
   // Close profile dropdown when clicking outside or pressing Escape
   useEffect(() => {
@@ -50,7 +58,7 @@ const KajurNavbar = ({ isSidebarOpen, onToggleSidebar }) => {
 
   return (
     <header className="w-full bg-[#0A2352] text-white sticky top-0 z-40 border-b border-[#071A3D] shadow-md font-sans">
-      <div className="w-full h-[72px] px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="w-full h-[72px] px-4 sm:px-8 lg:px-10 flex items-center justify-between">
         {/* Left: Logo + Title, then Hamburger toggle on the right */}
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Logo & Brand Info */}
@@ -78,12 +86,12 @@ const KajurNavbar = ({ isSidebarOpen, onToggleSidebar }) => {
             aria-label={isSidebarOpen ? 'Tutup menu sidebar' : 'Buka menu sidebar'}
             title={isSidebarOpen ? 'Sembunyikan Sidebar' : 'Tampilkan Sidebar'}
           >
-            {isSidebarOpen ? <X size={22} /> : <Menu size={22} />}
+            <Menu size={22} />
           </button>
         </div>
 
         {/* Right: User Profile Pill */}
-        <div className="relative" ref={profileRef}>
+        <div className="relative mr-2 sm:mr-4 md:mr-6" ref={profileRef}>
           <button
             type="button"
             onClick={() => setIsProfileOpen(!isProfileOpen)}

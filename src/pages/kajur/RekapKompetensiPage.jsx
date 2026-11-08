@@ -717,8 +717,8 @@ const RekapKompetensiPage = () => {
   const { user } = useAuth();
 
   // User details matching Figma wireframe specification
-  const userName = user?.name || 'Irenessa Rosidin';
-  const userNik = user?.nik || user?.nip || '213452';
+  const userName = user?.name || 'Ahmad Hamim Thohari';
+  const userNik = user?.nik || user?.nip || '115143';
   const userRole = user?.role === 'Kajur' || !user ? 'Ketua Jurusan' : user.role;
   const userProdi = user?.prodi || 'Teknik Informatika';
 
@@ -792,6 +792,11 @@ const RekapKompetensiPage = () => {
 
     return dataSource
       .filter((item) => {
+        // 0. Strict semester parity filter: Ganjil = only odd semesters (1, 3, 5, 7)
+        if (selectedSemester === 'Ganjil' && Number(item.semester) % 2 === 0) {
+          return false;
+        }
+
         // 1. Search Query filter
         if (searchQuery.trim()) {
           const query = searchQuery.toLowerCase();
@@ -804,7 +809,7 @@ const RekapKompetensiPage = () => {
           }
         }
 
-        // 2. Filter Semester dropdown
+        // 2. Filter Semester dropdown (further narrows within ganjil options)
         if (filterSemester !== 'Semua Semester') {
           const targetSem = filterSemester.replace('Semester ', '').trim();
           if (String(item.semester) !== targetSem) {
@@ -1022,7 +1027,7 @@ const RekapKompetensiPage = () => {
         />
 
         {/* Main Content Area: Smooth proportional expansion when sidebar collapses */}
-        <main className="flex-1 min-w-0 transition-all duration-300 ease-in-out px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
+        <main className="flex-1 min-w-0 transition-all duration-300 ease-in-out pl-4 pr-6 sm:pl-6 sm:pr-10 lg:pl-8 lg:pr-12 py-6 sm:py-8 w-full">
           <div className="w-full">
             {/* Header Row: Greeting (Left) & Filter Bar (Right) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-6">

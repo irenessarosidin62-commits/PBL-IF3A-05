@@ -292,7 +292,7 @@ const RekomendasiPenugasanPage = () => {
         />
 
         {/* Main Content Area: Smooth proportional expansion when sidebar collapses */}
-        <main className="flex-1 min-w-0 transition-all duration-300 ease-in-out px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
+        <main className="flex-1 min-w-0 transition-all duration-300 ease-in-out pl-4 pr-6 sm:pl-6 sm:pr-10 lg:pl-8 lg:pr-12 py-6 sm:py-8 w-full">
           <div className="w-full">
             {/* Header: Title + 3 Dropdown Filters - Selaras dengan Analisis Gap */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">

@@ -210,7 +210,7 @@ const KajurFilterBar = ({
 
         {openDropdown === 'prodi' && (
           <div
-            className="absolute right-0 sm:left-0 sm:right-auto mt-1.5 min-w-[260px] bg-white border border-[#D8E0EE] rounded-[12px] p-1.5 shadow-xl z-50 animate-in fade-in"
+            className="absolute right-0 mt-1.5 min-w-[260px] bg-white border border-[#D8E0EE] rounded-[12px] p-1.5 shadow-xl z-50 animate-in fade-in"
             role="listbox"
           >
             {PRODI_OPTIONS.map((prd) => {
